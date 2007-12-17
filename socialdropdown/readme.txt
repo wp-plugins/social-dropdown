@@ -13,6 +13,7 @@ This plugin displays several social bookmarking in a dropdown. Unlike other soci
 This plugin displays several social bookmarking options in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
 
 Supported Social Bookmarks are:
+
 * BlinkBits
 * BlinkList
 * BlogLines
