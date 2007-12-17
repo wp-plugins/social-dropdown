@@ -6,7 +6,7 @@ Tested up to: 2.3.1
 Stable tag: 1.2.2
 Donate link: http://www.tevine.com/donate.php
 
-Displays social bookmarking options in a dropdown.
+This plugin displays several social bookmarking in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
 
 == Description ==
 
