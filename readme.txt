@@ -12,6 +12,37 @@ This plugin displays several social bookmarking in a dropdown. Unlike other soci
 
 This plugin displays several social bookmarking options in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
 
+Supported Social Bookmarks are:
+* BlinkBits
+* BlinkList
+* BlogLines
+* BlogMarks
+* CiteULike
+* Co.mments
+* Del.icio.us
+* Digg
+* Diigo
+* Fark
+* Feed Me Links
+* Furl
+* Google Bookmarks
+* Linkagogo
+* Ma.gnolia
+* NetVouz
+* Newsvine
+* Propeller (replaces Netscape)
+* RawSugar
+* Reddit
+* Rojo
+* Simpy
+* Sphinn
+* Spurl
+* Squidoo
+* StumbleUpon
+* TailRank
+* Technorati
+* Yahoo MyWebs
+
 == Installation ==
 
 By installing the plugin, you agree to [Tevine's policies](http://www.tevine.com/policies.php "Tevine's Policies").
