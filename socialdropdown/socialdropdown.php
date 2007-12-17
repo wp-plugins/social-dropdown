@@ -1,7 +1,7 @@
 <?php
 /*
 Plugin Name: Social Dropdown
-Plugin URI: http://www.tevine.com/projects/
+Plugin URI: http://www.tevine.com/projects/socialdropdown
 Description: Displays social bookmarks in a dropdown to reduce clutter
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
