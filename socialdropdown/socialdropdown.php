@@ -26,7 +26,7 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-$dropdownversion = '1.22';
+$dropdownversion = '1.3.0';
 
 include_once('generatebookmarks.php');
 
