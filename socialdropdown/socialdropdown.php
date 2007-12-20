@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Social Dropdown
-Plugin URI: http://www.tevine.com/projects/socialdropdown
+Plugin URI: http://www.tevine.com/projects/
 Description: Displays social bookmarks in a dropdown to reduce clutter
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.22
+Version: 1.3.0
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
@@ -28,6 +28,8 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 
 $dropdownversion = '1.22';
 
+include_once('generatebookmarks.php');
+
 function Dropdown_header() {
 ?>
 
@@ -38,17 +40,27 @@ function Dropdown_header() {
 
 
 $dropdown_linkback = 'true';
+$dropdown_query = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo,fark|feedmelinks|furl|google|linkagogo|magnolia|netvouz|newsvine|propeller|rawsugar,reddit|rojo|simpy|sphinn|spurl|squidoo|stumbleupon|tailrank|technorati|yahoo';
 
 //Install options
 add_option('dropdown_allowlinkback', $dropdown_linkback, 'Allows a link back to the plugin page [Social Dropdown]');
 
+add_option('dropdown_query', $dropdown_query, 'The saved dropdown items [Social Dropdown]');
+
 if (get_option('dropdown_allowlinkback') == '') {
 	update_option('dropdown_allowlinkback', $dropdown_linkback);
+}
+if (get_option('dropdown_query') == '') {
+	update_option('dropdown_query', $dropdown_query);
 }
 
 if (get_option('dropdown_allowlinkback') != $dropdown_linkback) {
 	$dropdown_linkback = get_option('dropdown_allowlinkback');
 }
+if (get_option('dropdown_query') != $dropdown_query) {
+	$dropdown_query = get_option('dropdown_query');
+}
+
 
 function Dropdown_optionspage() {
 	switch ($task) {
@@ -63,13 +75,15 @@ function Dropdown_optionspage() {
 <input type="submit" name="Submit" value="<?php _e('Update Options &raquo;') ?>" />
 </p>
 <p><?php _e('You can configure some options through this panel.'); ?></p>
-<h3>Common settings</h3>
+<h3>Customize bookmarks</h3>
+<?php include('configinterface.php'); ?>
+<h3>Other options</h3>
 <p>Display a link to the plugin's homepage. You can set this to no, but a link would be appreciated. :)<br />
 <input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="true" <?php if (get_option('dropdown_allowlinkback') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
 <input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="false" <?php if (get_option('dropdown_allowlinkback') != 'true') { echo ' checked="checked"'; } ?> /><?php _e('No'); ?></p>
 
 <input type="hidden" name="action" value="update" />
-<input type="hidden" name="page_options" value="dropdown_allowlinkback" />
+<input type="hidden" name="page_options" value="dropdown_allowlinkback,dropdown_query" />
 
 
 
@@ -128,7 +142,13 @@ function GenerateAll() {
 //Makes it easier to handle the links and images
 //Put GenerateLink('separator'); to separate the links into another line
 
-//These will be generated in the dropdown area
+//These will be generated in the dropdown area if $overrideoptions (found in generatebookmarks.php) is set to true.
+//If $overrideoptions is set to false, the bookmarks displayed will use those from the options.
+
+global $overrideoptions;
+
+if ($overrideoptions == 'true') {
+
 GenerateLink('blinkbits');
 GenerateLink('blinklist');
 GenerateLink('bloglines');
@@ -161,6 +181,10 @@ GenerateLink('stumbleupon');
 GenerateLink('tailrank');
 GenerateLink('technorati');
 GenerateLink('yahoo');
+
+} else {
+DisplayBookmarks();
+}
 }
 
 function NoJavaGenerateAll() {

@@ -1,9 +1,9 @@
 === Social Dropdown ===
 Contributors: multippt
-Tags: post, social bookmark, bookmark, accessibility, digg
+Tags: post, social bookmark, bookmark, accessibility
 Requires at least: 1.5
 Tested up to: 2.3.1
-Stable tag: 1.2.2
+Stable tag: 1.3.0
 Donate link: http://www.tevine.com/donate.php
 
 This plugin displays several social bookmarking in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
@@ -44,16 +44,24 @@ Supported Social Bookmarks are:
 * Technorati
 * Yahoo MyWebs
 
+In addition, you can customize the order of the bookmarks or choose to remove some of them without editing a file.
+
 == Installation ==
 
 By installing the plugin, you agree to [Tevine's policies](http://www.tevine.com/policies.php "Tevine's Policies").
 
 1. Upload the "socialdropdown" folder into the "/wp-content/plugins/" directory. The folder should consist of several files and folders:
+
 * readme.txt
+* LICENSE.txt
+* ajax.js
+* configinterface.php
 * dropdown.js
+* generatebookmarks.php
 * style.css
 * socialdropdown.php
 * icons/
+* thescripts/
 
 2. Login to your Wordpress Administration Panel
 
@@ -61,32 +69,7 @@ By installing the plugin, you agree to [Tevine's policies](http://www.tevine.com
 
 4. Insert `<?php Show_Dropdown(); ?>` at where you want the social bookmarks to be displayed. This line of code should be placed within the Wordpress loop (i.e. the place where your posts appear).
 
-5. You can customize what social bookmarks you want to display by editing the plugin file.
-	Within the plugin, you should come across a few lines of code like this:
-	GenerateLink('blinkbits');
-	GenerateLink('blinklist');
-	GenerateLink('bloglines');
-	GenerateLink('blogmarks');
-	GenerateLink('citeulike');
-	GenerateLink('comments');
-	GenerateLink('delicious');
-	GenerateLink('digg');
-	GenerateLink('diigo');
-	GenerateLink('feedmelinks');
-	GenerateLink('separator'); //Separator
-	GenerateLink('furl');
-	GenerateLink('google');
-	GenerateLink('reddit');
-	GenerateLink('sphinn');
-	GenerateLink('spurl');
-	GenerateLink('squidoo');
-	GenerateLink('stumbleupon');
-	GenerateLink('tailrank');
-	GenerateLink('technorati');
-	GenerateLink('yahoo');
-	
-	Delete any line to remove the social bookmarking option. If you want to separate some bookmarking options from others, use this:
-	GenerateLink('separator');
+5. You can rearrange, add and remove bookmarks via the `Options > Social Dropdown` panel.
 
 Feel free to poke around the internals of the plug-in.
 
@@ -94,11 +77,13 @@ Feel free to poke around the internals of the plug-in.
 
 You can check what version the plug-in is at via visiting the `Options > Social Dropdown` panel.
 
-1. Deactivate the `Social Dropdown` plug-in
+1. Deactivate the `Social Dropdown` plug-in. You may want to back-up your existing plug-in files.
 
 2. Replace the files in the `socialdropdown` directory located in the Wordpress plug-ins directory
 
 3. Activate the `Social Dropdown` plug-in
+
+If you have modified the `GenerateAll()` function, copy the modified area and set `$overrideoptions` to `true` to preserve your changes. `$overrideoptions` can be found in `generatebookmarks.php`.
 
 == Requirements ==
 
@@ -117,26 +102,38 @@ However, users without JavaScript installed will see a list of social bookmarks 
 
 Within `socialdropdown.php`, these are some areas you can edit to influence how the dropdown appears.
 
-In the `GenerateAll()` function, you can re-arrange how the items appear, add new items or remove them.
+In the `GenerateAll()` function, you can re-arrange how the items appear, add new items or remove them (after setting `$overrideoptions` to `true`). You can already do this using the `Options > Social Dropdown panel`.
 
 ** Creating bookmarks **
 Each social bookmark is generated using the `GenerateLink()` function, and the URLs used are created using the `GenerateURL()` function. The parameters are as followed: GenerateLink($type), where $type is the name of the social bookmark (e.g. Digg is represented as 'digg').
-In order to add a new bookmark, add the following lines of code after an item [i.e. after `break;`] in the **GenerateURL()** function. An example is shown
+In order to add a new bookmark, add the following lines of code after an item [i.e. after `break;`] in the **GenerateURL()** function. An example is shown:
+
 	case '[name of social bookmarking site]':
 	?>
 	[URL to social bookmark page]
 	<?php
 	break;
+
 In this example, when you call `GenerateURL('yahoo')`, the link for this item is generated. The link is the direct link to the submitting URL, usually available as an API on the social bookmarking site. Within the URL, there is some PHP code. `the_title()` represents the post title, while `echo get_the_permalink()` represents the URL of the post.
 
 After adding the PHP stuff, don't forget to put in `GenerateLink('[name of social bookmark site]')` in `GenerateAll()`
 
+== Frequently Asked Questions ==
+
+**How do you re-arrange bookmarks?**
+Version 1.30 and above of this plug-in supports the customization of bookmarks. In order to customize your bookmarks, use the drag and drop feature in `Options > Social Dropdown`.
+
+== Screenshots ==
+
+Some available screenshots can be found at the [plug-in page](http://www.tevine.com/projects/socialdropdown/ "Social Dropdown") in Tevine.
+
 == Credits ==
 
-2 images were taken from http://www.famfamfam.com/. Several images are taken from the corresponding social bookmarking sites and edited to suit the plug-in. The dropdown javascript is taken from http://www.dynamicdrive.com/ and modified.
+1 image is taken from http://www.famfamfam.com/. Several images are created or taken from the corresponding social bookmarking sites and edited to suit the plug-in. The dropdown javascript is taken from http://www.dynamicdrive.com/ and modified. The drag-drop library is provided by script.aculo.us.
 
 == Changelog ==
 
+* 1.3.0 - Allowed for configuration of bookmarks via `Options > Social Dropdown`. [Currently in testing.]
 * 1.2.2 - Link optimisation. Now allows for the disabling of the link back to the plugin's homepage.
 * 1.2.1 - Link optimisation; now the plugin has little negative impact on the site's SEO and has reduced link leakage. Fixed the link to point to plugin's main page. Added customization of styles. Allowed for a customized dropdown "on" state. Added black colored theme.
 * 1.2.0 - Link optimisation. Addition of 10 other social bookmarks. Addition of update notification
