@@ -5,7 +5,7 @@ Plugin URI: http://www.tevine.com/projects/
 Description: Displays social bookmarks in a dropdown to reduce clutter
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.3.0
+Version: 1.3.1
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
@@ -26,7 +26,7 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-$dropdownversion = '1.3.0';
+$dropdownversion = '1.3.1';
 
 include_once('generatebookmarks.php');
 
@@ -69,14 +69,37 @@ function Dropdown_optionspage() {
 ?>
 <div class="wrap">
 <h2><?php _e('Social Dropdown configuration'); ?></h2>
+<?php
+error_reporting(0);
+if(fopen(ABSPATH."/wp-content/plugins/socialdropdown/ping.php","r")) {
+?>
 <form method="post" action="options.php">
+
 <?php wp_nonce_field('update-options'); ?>
 <p class="submit">
 <input type="submit" name="Submit" value="<?php _e('Update Options &raquo;') ?>" />
 </p>
 <p><?php _e('You can configure some options through this panel.'); ?></p>
 <h3>Customize bookmarks</h3>
-<?php include('configinterface.php'); ?>
+<?php
+if(fopen(ABSPATH."/wp-content/plugins/socialdropdown/thescripts/ping.php","r")) {
+include('configinterface.php');
+} else {
+?>
+<p>Some required files are missing. Please check for the following files:<br />
+-/wp-content/plugins/socialdropdown/thescripts/builder.js<br />
+-/wp-content/plugins/socialdropdown/thescripts/controls.js<br />
+-/wp-content/plugins/socialdropdown/thescripts/dragdrop.js<br />
+-/wp-content/plugins/socialdropdown/thescripts/effects.js<br />
+-/wp-content/plugins/socialdropdown/thescripts/prototype.js<br />
+-/wp-content/plugins/socialdropdown/thescripts/scriptaculous.js<br />
+-/wp-content/plugins/socialdropdown/thescripts/slider.js<br />
+-/wp-content/plugins/socialdropdown/thescripts/sound.js<br />
+-/wp-content/plugins/socialdropdown/thescripts/unittest.js<br />
+-/wp-content/plugins/socialdropdown/thescripts/ping.php</p>
+<?php
+}
+?>
 <h3>Other options</h3>
 <p>Display a link to the plugin's homepage. You can set this to no, but a link would be appreciated. :)<br />
 <input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="true" <?php if (get_option('dropdown_allowlinkback') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
@@ -94,7 +117,10 @@ function Dropdown_optionspage() {
 <p>If you want to edit the plugin, please edit the <code>socialdropdown.php</code> file to rearrange the bookmarks, or edit <code>style.css</code> to change the styles of the plugin. These files should reside in the socialdropdown folder</p>
 <?php Dropdown_Updatecheck(); ?>
 </form>
-
+<?php } else {
+echo 'The plugin is not installed properly. Please install it at the &quot;wp-content/plugins/socialdropdown/&quot; directory.';
+}
+ ?>
 </div>
 <?php
 	break;

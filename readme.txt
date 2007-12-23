@@ -3,7 +3,7 @@ Contributors: multippt
 Tags: post, social bookmark, bookmark, accessibility
 Requires at least: 1.5
 Tested up to: 2.3.1
-Stable tag: 1.3.0
+Stable tag: 1.3.1
 Donate link: http://www.tevine.com/donate.php
 
 This plugin displays several social bookmarking in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
@@ -123,6 +123,9 @@ After adding the PHP stuff, don't forget to put in `GenerateLink('[name of socia
 **How do you re-arrange bookmarks?**
 Version 1.30 and above of this plug-in supports the customization of bookmarks. In order to customize your bookmarks, use the drag and drop feature in `Options > Social Dropdown`.
 
+**There's something wrong with your plugin**
+If you found any problems, please reach me at ready725 at gmail. 
+
 == Screenshots ==
 
 Some available screenshots can be found at the [plug-in page](http://www.tevine.com/projects/socialdropdown/ "Social Dropdown") in Tevine.
@@ -133,6 +136,7 @@ Some available screenshots can be found at the [plug-in page](http://www.tevine.
 
 == Changelog ==
 
+* 1.3.1 - Added file checks.
 * 1.3.0 - Allowed for configuration of bookmarks via `Options > Social Dropdown`. [Currently in testing.]
 * 1.2.2 - Link optimisation. Now allows for the disabling of the link back to the plugin's homepage.
 * 1.2.1 - Link optimisation; now the plugin has little negative impact on the site's SEO and has reduced link leakage. Fixed the link to point to plugin's main page. Added customization of styles. Allowed for a customized dropdown "on" state. Added black colored theme.
