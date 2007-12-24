@@ -5,7 +5,7 @@ Plugin URI: http://www.tevine.com/projects/
 Description: Displays social bookmarks in a dropdown to reduce clutter
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.3.2
+Version: 1.3.3
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
@@ -26,7 +26,7 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-$dropdownversion = '1.3.2';
+$dropdownversion = '1.3.3';
 
 include_once('generatebookmarks.php');
 
@@ -118,7 +118,7 @@ include('configinterface.php');
 <?php Dropdown_Updatecheck(); ?>
 </form>
 <?php } else {
-echo 'The plugin is not installed properly. Please install it at the &quot;wp-content/plugins/socialdropdown/&quot; directory.';
+echo 'The plugin is not installed properly. Please install it at the &quot;wp-content/plugins/<strong>socialdropdown</strong>/&quot; directory.';
 }
  ?>
 </div>
@@ -130,7 +130,7 @@ echo 'The plugin is not installed properly. Please install it at the &quot;wp-co
 function Dropdown_Updatecheck() {
 global $dropdownversion;
 //Checks for an update
-$fp = fsockopen("www.tevine.com", 80, $errno, $errstr, 30) or die('');
+$fp = fsockopen("www.tevine.com", 80, $errno, $errstr, 30) or die(''); //Will output an error anyway if it fails
 if (!$fp) {
     echo "<p>Sorry, but the plugin cannot be checked if it is the latest revision. </p>\n";
 } else {
@@ -458,7 +458,7 @@ case 'technorati':
 echo htmlentities('http://www.technorati.com/faves?add='.get_permalink());
 break;
 case 'rawsugar':
-echo htmlentities('http://www.rawsugar.com/pages/tagger.faces?turl='.get_permalink().'&tttl='.get_the_title());
+echo htmlentities('http://rawsugar.com/home/extensiontagit/?turl='.get_permalink().'&tttl='.get_the_title());
 break;
 case 'rojo':
 echo htmlentities('http://www.rojo.com/add-subscription/?resource='.get_permalink());

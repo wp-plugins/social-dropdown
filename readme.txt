@@ -3,7 +3,7 @@ Contributors: multippt
 Tags: post, social bookmark, bookmark, accessibility
 Requires at least: 1.5
 Tested up to: 2.3.1
-Stable tag: 1.3.2
+Stable tag: 1.3.3
 Donate link: http://www.tevine.com/donate.php
 
 This plugin displays several social bookmarking in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
@@ -50,7 +50,7 @@ In addition, you can customize the order of the bookmarks or choose to remove so
 
 By installing the plugin, you agree to [Tevine's policies](http://www.tevine.com/policies.php "Tevine's Policies").
 
-1. Upload the "socialdropdown" folder into the "/wp-content/plugins/" directory. The folder should consist of several files and folders:
+1. Upload the **"socialdropdown"** folder into the "/wp-content/plugins/" directory. The folder should consist of several files and folders:
 
 * readme.txt
 * LICENSE.txt
@@ -136,6 +136,7 @@ Some available screenshots can be found at the [plug-in page](http://www.tevine.
 
 == Changelog ==
 
+* 1.3.3 - Fixed RawSugar links. Thanks to phprocket for informing the problem.
 * 1.3.2 - Fixed path problems.
 * 1.3.1 - Added file checks.
 * 1.3.0 - Allowed for configuration of bookmarks via `Options > Social Dropdown`. [Currently in testing.]
