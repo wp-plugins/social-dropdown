@@ -5,7 +5,7 @@ Plugin URI: http://www.tevine.com/projects/
 Description: Displays social bookmarks in a dropdown to reduce clutter
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.3.1
+Version: 1.3.2
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
@@ -26,15 +26,15 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-$dropdownversion = '1.3.1';
+$dropdownversion = '1.3.2';
 
 include_once('generatebookmarks.php');
 
 function Dropdown_header() {
 ?>
 
-<link rel="stylesheet" href="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/style.css" type="text/css" />
-<script type="text/javascript" src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/dropdown.js"></script>
+<link rel="stylesheet" href="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/style.css" type="text/css" />
+<script type="text/javascript" src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/dropdown.js"></script>
 <?php
 }
 
@@ -264,7 +264,7 @@ NoJavaGenerateAll();
 
 function GenerateLink($type) {
 if ($type != 'separator') {
-?><a class="link" rel="external nofollow" title="<?php GenerateName($type); ?>" href="<?php GenerateURL($type) ?>"><img alt="<?php GenerateName($type); ?>" src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/<?php echo $type; ?>.png" /></a><?php
+?><a class="link" rel="external nofollow" title="<?php GenerateName($type); ?>" href="<?php GenerateURL($type) ?>"><img alt="<?php GenerateName($type); ?>" src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/<?php echo $type; ?>.png" /></a><?php
 } else {
 echo '</p><p>';
 }

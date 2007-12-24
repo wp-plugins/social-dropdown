@@ -11,7 +11,7 @@ $overrideoptions = 'false'; //Set this to true if you want to override some opti
 
 function GenerateIMG($type) {
 ?>
-<img alt="<?php GenerateName($type); ?>" src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/<?php echo $type; ?>.png" />
+<img alt="<?php GenerateName($type); ?>" src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/<?php echo $type; ?>.png" />
 <?php
 }
 

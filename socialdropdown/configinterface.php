@@ -1,7 +1,7 @@
 
-<script language="JavaScript" src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/ajax.js"></script>
-	<script language="JavaScript" src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/thescripts/prototype.js"></script>
-	<script language="JavaScript" src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/thescripts/scriptaculous.js"></script>
+<script language="JavaScript" src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/ajax.js"></script>
+	<script language="JavaScript" src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/thescripts/prototype.js"></script>
+	<script language="JavaScript" src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/thescripts/scriptaculous.js"></script>
 
 <?php include_once('generatebookmarks.php'); ?>
 
@@ -118,7 +118,7 @@ function ShowGroupsArray() {
 
 function UpdatePreview() {
 textinfo = document.getElementById('dropdown_query');
-CallAJAX(textinfo.value, '<?php bloginfo('url'); ?>');
+CallAJAX(textinfo.value, '<?php echo get_settings('siteurl'); ?>');
 }
 
 
@@ -258,7 +258,7 @@ vertical-align: middle;
 <hr />
 <div name="preview" id="preview" class="previewcontainer">
 Preview<br />
-<div class="displaypreview" id="dispprev"><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/loading.png" /> Preview coming up...</div>
+<div class="displaypreview" id="dispprev"><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/loading.png" /> Preview coming up...</div>
 <hr />
 </div>
 <?php CreateConfigBookmarks(); ?>
@@ -267,44 +267,44 @@ Preview<br />
 
 	<div id="group1" class="section">
 		<h3 class="handle"> </h3>
-		<div id="blinkbits" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/blinkbits.png" />BlinkBits</p></div>
-		<div id="blinklist" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/blinklist.png" />BlinkList</p></div>
-		<div id="bloglines" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/bloglines.png" />BlogLines</p></div>
-		<div id="blogmarks" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/blogmarks.png" />BlogMarks</p></div>
-		<div id="buddymarks" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/buddymarks.png" />BuddyMarks</p></div>
-		<div id="citeulike" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/citeulike.png" />CiteULike</p></div>
-		<div id="comments" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/comments.png" />Co.mments</p></div>
-		<div id="delicious" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/delicious.png" />Del.icio.us</p></div>
-		<div id="digg" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/digg.png" />Digg</p></div>
-		<div id="diigo" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/diigo.png" />Diigo</p></div>
+		<div id="blinkbits" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/blinkbits.png" />BlinkBits</p></div>
+		<div id="blinklist" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/blinklist.png" />BlinkList</p></div>
+		<div id="bloglines" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/bloglines.png" />BlogLines</p></div>
+		<div id="blogmarks" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/blogmarks.png" />BlogMarks</p></div>
+		<div id="buddymarks" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/buddymarks.png" />BuddyMarks</p></div>
+		<div id="citeulike" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/citeulike.png" />CiteULike</p></div>
+		<div id="comments" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/comments.png" />Co.mments</p></div>
+		<div id="delicious" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/delicious.png" />Del.icio.us</p></div>
+		<div id="digg" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/digg.png" />Digg</p></div>
+		<div id="diigo" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/diigo.png" />Diigo</p></div>
 	</div>
 
 	<div id="group2" class="section">
 		<h3 class="handle"> </h3>
-		<div id="fark" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/fark.png" />Fark</p></div>
-		<div id="feedmelinks" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/feedmelinks.png" />Feed Me Links</p></div>
-		<div id="furl" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/furl.png" />Furl</p></div>
-		<div id="google" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/google.png" />Google</p></div>
-		<div id="linkagogo" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/linkagogo.png" />Linkagogo</p></div>
-		<div id="magnolia" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/magnolia.png" />Ma.gnolia</p></div>
-		<div id="netvouz" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/netvouz.png" />Netvouz</p></div>
-		<div id="newsvine" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/newsvine.png" />Newsvine</p></div>
-		<div id="propeller" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/propeller.png" />Propeller</p></div>
-		<div id="rawsugar" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/rawsugar.png" />Raw Sugar</p></div>
+		<div id="fark" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/fark.png" />Fark</p></div>
+		<div id="feedmelinks" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/feedmelinks.png" />Feed Me Links</p></div>
+		<div id="furl" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/furl.png" />Furl</p></div>
+		<div id="google" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/google.png" />Google</p></div>
+		<div id="linkagogo" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/linkagogo.png" />Linkagogo</p></div>
+		<div id="magnolia" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/magnolia.png" />Ma.gnolia</p></div>
+		<div id="netvouz" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/netvouz.png" />Netvouz</p></div>
+		<div id="newsvine" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/newsvine.png" />Newsvine</p></div>
+		<div id="propeller" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/propeller.png" />Propeller</p></div>
+		<div id="rawsugar" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/rawsugar.png" />Raw Sugar</p></div>
 	</div>
 
 	<div id="group3" class="section">
 		<h3 class="handle"> </h3>
-		<div id="reddit" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/reddit.png" />Reddit</p></div>
-		<div id="rojo" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/rojo.png" />Rojo</p></div>
-		<div id="simpy" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/simpy.png" />Simpy</p></div>
-		<div id="sphinn" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/sphinn.png" />Sphinn</p></div>
-		<div id="spurl" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/spurl.png" />Spurl</p></div>
-		<div id="squidoo" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/squidoo.png" />Squidoo</p></div>
-		<div id="stumbleupon" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/stumbleupon.png" />StumbleUpon</p></div>
-		<div id="tailrank" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/tailrank.png" />TailRank</p></div>
-		<div id="technorati" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/technorati.png" />Technorati</p></div>
-		<div id="yahoo" class="lineitem"><p><img src="<?php bloginfo('url'); ?>/wp-content/plugins/socialdropdown/icons/yahoo.png" />Yahoo MyWeb</p></div>
+		<div id="reddit" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/reddit.png" />Reddit</p></div>
+		<div id="rojo" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/rojo.png" />Rojo</p></div>
+		<div id="simpy" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/simpy.png" />Simpy</p></div>
+		<div id="sphinn" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/sphinn.png" />Sphinn</p></div>
+		<div id="spurl" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/spurl.png" />Spurl</p></div>
+		<div id="squidoo" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/squidoo.png" />Squidoo</p></div>
+		<div id="stumbleupon" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/stumbleupon.png" />StumbleUpon</p></div>
+		<div id="tailrank" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/tailrank.png" />TailRank</p></div>
+		<div id="technorati" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/technorati.png" />Technorati</p></div>
+		<div id="yahoo" class="lineitem"><p><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/yahoo.png" />Yahoo MyWeb</p></div>
 	</div>
 
 
