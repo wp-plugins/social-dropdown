@@ -58,5 +58,5 @@ disp.innerHTML = voteno;
 }
 }
 function CallAJAX(val,domainvar) {
-	AJAXrequest(domainvar+'/wp-content/plugins/socialdropdown/generatebookmarks.php?mode=preview&q='+val);
+	AJAXrequest(domainvar+'/generatebookmarks.php?mode=preview&q='+val);
 }

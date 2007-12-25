@@ -5,7 +5,7 @@ Plugin URI: http://www.tevine.com/projects/
 Description: Displays social bookmarks in a dropdown to reduce clutter
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.3.3
+Version: 1.4.0
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
@@ -26,15 +26,19 @@ Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
     Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-$dropdownversion = '1.3.3';
+/*
+    This plugin has minimal link leakage, so you need not worry about it screwing with your SEO.
+*/
+
+$dropdownversion = '1.4.0';
 
 include_once('generatebookmarks.php');
 
 function Dropdown_header() {
 ?>
 
-<link rel="stylesheet" href="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/style.css" type="text/css" />
-<script type="text/javascript" src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/dropdown.js"></script>
+<link rel="stylesheet" href="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/style.css" type="text/css" />
+<script type="text/javascript" src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/dropdown.js"></script>
 <?php
 }
 
@@ -61,6 +65,10 @@ if (get_option('dropdown_query') != $dropdown_query) {
 	$dropdown_query = get_option('dropdown_query');
 }
 
+function GetDropPluginPath() {
+$cleanabs = str_replace("/","\\", ABSPATH);
+return str_replace($cleanabs, '', dirname(__FILE__));
+}
 
 function Dropdown_optionspage() {
 	switch ($task) {
@@ -70,8 +78,8 @@ function Dropdown_optionspage() {
 <div class="wrap">
 <h2><?php _e('Social Dropdown configuration'); ?></h2>
 <?php
-error_reporting(0);
-if(fopen(ABSPATH."/wp-content/plugins/socialdropdown/ping.php","r")) {
+error_reporting(0); //Don't show errors
+if(fopen(ABSPATH.GetDropPluginPath()."/ping.php","r")) {
 ?>
 <form method="post" action="options.php">
 
@@ -82,26 +90,26 @@ if(fopen(ABSPATH."/wp-content/plugins/socialdropdown/ping.php","r")) {
 <p><?php _e('You can configure some options through this panel.'); ?></p>
 <h3>Customize bookmarks</h3>
 <?php
-if(fopen(ABSPATH."/wp-content/plugins/socialdropdown/thescripts/ping.php","r")) {
+if(fopen(ABSPATH.GetDropPluginPath()."/thescripts/ping.php","r")) {
 include('configinterface.php');
 } else {
 ?>
 <p>Some required files are missing. Please check for the following files:<br />
--/wp-content/plugins/socialdropdown/thescripts/builder.js<br />
--/wp-content/plugins/socialdropdown/thescripts/controls.js<br />
--/wp-content/plugins/socialdropdown/thescripts/dragdrop.js<br />
--/wp-content/plugins/socialdropdown/thescripts/effects.js<br />
--/wp-content/plugins/socialdropdown/thescripts/prototype.js<br />
--/wp-content/plugins/socialdropdown/thescripts/scriptaculous.js<br />
--/wp-content/plugins/socialdropdown/thescripts/slider.js<br />
--/wp-content/plugins/socialdropdown/thescripts/sound.js<br />
--/wp-content/plugins/socialdropdown/thescripts/unittest.js<br />
--/wp-content/plugins/socialdropdown/thescripts/ping.php</p>
+-<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/builder.js<br />
+-<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/controls.js<br />
+-<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/dragdrop.js<br />
+-<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/effects.js<br />
+-<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/prototype.js<br />
+-<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/scriptaculous.js<br />
+-<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/slider.js<br />
+-<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/sound.js<br />
+-<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/unittest.js<br />
+-<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/ping.php</p>
 <?php
 }
 ?>
 <h3>Other options</h3>
-<p>Display a link to the plugin's homepage. You can set this to no, but a link would be appreciated. :)<br />
+<p>Display a link to the plugin's homepage (the page also contains some help for users not familiar with social bookmarking).<br />
 <input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="true" <?php if (get_option('dropdown_allowlinkback') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
 <input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="false" <?php if (get_option('dropdown_allowlinkback') != 'true') { echo ' checked="checked"'; } ?> /><?php _e('No'); ?></p>
 
@@ -113,12 +121,13 @@ include('configinterface.php');
 <p class="submit">
 <input type="submit" name="Submit" value="<?php _e('Update Options &raquo;') ?>" />
 </p>
-<h3>Version information</h3>
-<p>If you want to edit the plugin, please edit the <code>socialdropdown.php</code> file to rearrange the bookmarks, or edit <code>style.css</code> to change the styles of the plugin. These files should reside in the socialdropdown folder</p>
+<h3>Other information</h3>
+<p>Don't forget to put in <code>&lt;?php Show_Dropdown(); ?&gt;</code> into the Wordpress loop which usually resides in your index.php file.</p>
+<p>This plug-in does not interfere with your site's search engine optimisation (SEO) as most links are &quot;nofollowed&quot;.</p>
 <?php Dropdown_Updatecheck(); ?>
 </form>
 <?php } else {
-echo 'The plugin is not installed properly. Please install it at the &quot;wp-content/plugins/<strong>socialdropdown</strong>/&quot; directory.';
+echo 'The plugin is not installed properly. Please install it at the &quot;wp-content/plugins/<strong>social-dropdown</strong>/&quot; directory.';
 }
  ?>
 </div>
@@ -130,7 +139,7 @@ echo 'The plugin is not installed properly. Please install it at the &quot;wp-co
 function Dropdown_Updatecheck() {
 global $dropdownversion;
 //Checks for an update
-$fp = fsockopen("www.tevine.com", 80, $errno, $errstr, 30) or die(''); //Will output an error anyway if it fails
+$fp = fsockopen("www.tevine.com", 80, $errno, $errstr, 30); //Will output an error anyway if it fails
 if (!$fp) {
     echo "<p>Sorry, but the plugin cannot be checked if it is the latest revision. </p>\n";
 } else {
@@ -217,6 +226,7 @@ function NoJavaGenerateAll() {
 //Makes it easier to handle the links and images
 //Put GenerateLink('separator'); to separate the links into another line
 
+//Set $usenonjavaset = 'true' to use this. Otherwise it will use the bookmarks you configured in the administration panel.
 //This will be generated if the user has no JavaScript - keep it as few as possible
 GenerateLink('blinkbits');
 GenerateLink('blinklist');
@@ -246,25 +256,31 @@ $isfirst = '';
 function Show_Dropdown() {
 global $isfirst;
 ?>
+<div id="dropdisp<?php the_ID(); ?>"><div class="nojavadropcontent" style="text-align: center;"><p>Bookmark this article!<?php if (get_option('dropdown_allowlinkback') != 'false') { ?> <span><a style="color: #CCCCCC;"  rel="<?php if ($isfirst == '' && is_home()) { $isfirst = 'false'; } else { echo 'nofollow'; } ?>" href="http://www.tevine.com/projects/socialdropdown/" title="About Social Dropdown">[?]</a></span><?php } ?></p><p><?php
+if ($usenonjavaset == 'true') {
+NoJavaGenerateAll();
+} else {
+//Default case
+GenerateAll();
+}
+?></p></div></div>
 <script type="text/javascript">
 <!--/*--><![CDATA[/*><!--*/
 var menu<?php the_ID(); ?>=new Array()
-menu<?php the_ID(); ?>[0]= '<div class="dropcontent"><p>Bookmark this article!</p><p><?php
+menu<?php the_ID(); ?>[0]= '<div class="dropcontent"><p>Bookmark this article! <a style="color: #CCCCCC;" href="http://www.tevine.com/projects/socialdropdown" title="What is Social Dropdown">[?]</a></p><p><?php
 GenerateAll();
-?></p><?php if (get_option('dropdown_allowlinkback') != 'false') { ?><p><small><a rel="external" style="color: #CCCCCC;" href="http://www.tevine.com/projects/socialdropdown" title="Social Dropdown">Social Dropdown</a></small></p><?php } ?></div>';
+?></p><?php if (get_option('dropdown_allowlinkback') != 'false') { ?><?php } ?></div>';
 var droptext = "<p class=\"taskbuttoncontainer\"><span class=\"booktaskbutton\"><a class=\"bookbutton\" id=\"bookbutton<?php the_ID(); ?>\" href=\"javascript:void(0);\" onclick=\"return dropdownmenu(document.getElementById('bookbutton<?php the_ID(); ?>'), event, menu<?php the_ID(); ?>, '300px', document.getElementById('bookdropbutton<?php the_ID(); ?>'))\" onmouseout=\"\" title=\"Bookmarking options\">Bookmark This</a><a class=\"dropdownbutton\" id=\"bookdropbutton<?php the_ID(); ?>\" href=\"javascript:void(0);\" onclick=\"return dropdownmenu(document.getElementById('bookbutton<?php the_ID(); ?>'), event, menu<?php the_ID(); ?>, '300px', document.getElementById('bookdropbutton<?php the_ID(); ?>'))\" onmouseout=\"\" title=\"Bookmarking options\">&nbsp;</a></span> </p>";
-document.write(droptext);
+var itemdrop = document.getElementById('dropdisp<?php the_ID(); ?>');
+itemdrop.innerHTML = droptext;
 /*]]>*/-->
 </script>
-<div><noscript><div class="nojavadropcontent" style="text-align: center;"><p>Bookmark this article!<?php if (get_option('dropdown_allowlinkback') != 'false') { ?> <span><a style="color: #CCCCCC;"  rel="external<?php if ($isfirst == '' && is_home()) { $isfirst = 'false'; } else { echo ' nofollow'; } ?>" href="http://www.tevine.com/projects/socialdropdown/" title="Get Social Dropdown">[?]</a></span><?php } ?></p><p><?php
-NoJavaGenerateAll();
-?></p></div></noscript></div>
 <?php
 }
 
 function GenerateLink($type) {
 if ($type != 'separator') {
-?><a class="link" rel="external nofollow" title="<?php GenerateName($type); ?>" href="<?php GenerateURL($type) ?>"><img alt="<?php GenerateName($type); ?>" src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/<?php echo $type; ?>.png" /></a><?php
+?><a class="link" rel="nofollow" title="<?php GenerateName($type); ?>" href="<?php GenerateURL($type) ?>"><img alt="<?php GenerateName($type); ?>" src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/icons/<?php echo $type; ?>.png" /></a><?php
 } else {
 echo '</p><p>';
 }
@@ -312,6 +328,9 @@ break;
 case 'furl':
 echo 'Furl';
 break;
+case 'gravee':
+echo 'Gravee';
+break;
 case 'google':
 echo 'Google';
 break;
@@ -327,6 +346,9 @@ break;
 case 'newsvine':
 echo 'Newsvine';
 break;
+case 'onlywire':
+echo 'OnlyWire';
+break;
 case 'propeller':
 echo 'Propeller';
 break;
@@ -335,6 +357,9 @@ echo 'Reddit';
 break;
 case 'simpy':
 echo 'Simpy';
+break;
+case 'slashdot':
+echo 'SlashDot';
 break;
 case 'sphinn':
 echo 'Sphinn';
@@ -347,6 +372,12 @@ echo 'Squidoo';
 break;
 case 'stumbleupon':
 echo 'StumbleUpon';
+break;
+case 'tagtooga':
+echo 'Tagtooga';
+break;
+case 'taggly':
+echo 'Taggly';
 break;
 case 'tailrank':
 echo 'Tailrank';
@@ -415,17 +446,8 @@ break;
 case 'google':
 echo htmlentities('http://www.google.com/bookmarks/mark?op=edit&bkmk='.get_permalink().'&title='.get_the_title());
 break;
-case 'listable':
-echo htmlentities('http://www.google.com/bookmarks/mark?op=edit&bkmk='.get_permalink().'&title='.get_the_title());
-break;
-case 'netvouz':
-echo htmlentities('http://www.netvouz.com/action/submitBookmark?url='.get_permalink().'&title='.get_the_title().'&popup=no');
-break;
-case 'newsvine':
-echo htmlentities('http://www.newsvine.com/_wine/save?popoff=0&u='.get_permalink().'&h='.get_the_title());
-break;
-case 'reddit':
-echo htmlentities('http://www.reddit.com/submit?url='.get_permalink().'&title='.get_the_title());
+case 'gravee':
+echo htmlentities('http://www.gravee.com/account/bookmarkpop?u='.get_permalink().'&t='.get_the_title());
 break;
 case 'linkagogo':
 echo htmlentities('http://www.linkagogo.com/go/AddNoPopup?title='.get_the_title().'&url='.get_permalink());
@@ -433,11 +455,26 @@ break;
 case 'magnolia':
 echo htmlentities('http://ma.gnolia.com/bookmarklet/add?url='.get_permalink().'&title='.get_the_title());
 break;
+case 'netvouz':
+echo htmlentities('http://www.netvouz.com/action/submitBookmark?url='.get_permalink().'&title='.get_the_title().'&popup=no');
+break;
+case 'newsvine':
+echo htmlentities('http://www.newsvine.com/_wine/save?popoff=0&u='.get_permalink().'&h='.get_the_title());
+break;
+case 'onlywire':
+echo htmlentities('http://www.onlywire.com/b/?u='.get_permalink().'&t='.get_the_title());
+break;
 case 'propeller':
 echo htmlentities('http://www.propeller.com/submit/?U='.get_permalink().'&T='.get_the_title().'C=');
 break;
+case 'reddit':
+echo htmlentities('http://www.reddit.com/submit?url='.get_permalink().'&title='.get_the_title());
+break;
 case 'simpy':
 echo htmlentities('http://www.simpy.com/simpy/LinkAdd.do?note='.get_the_title().'&href='.get_permalink());
+break;
+case 'slashdot':
+echo htmlentities('http://www.slashdot.org/slashdot-it.pl?op=basic&url='.get_permalink());
 break;
 case 'sphinn':
 echo htmlentities('http://www.sphinn.com/submit.php?url='.get_permalink().'&title='.get_the_title());
@@ -450,6 +487,12 @@ echo htmlentities('http://www.squidoo.com/lensmaster/bookmark?'.get_permalink())
 break;
 case 'stumbleupon':
 echo htmlentities('http://www.stumbleupon.com/submit?url='.get_permalink().'&title='.get_the_title());
+break;
+case 'tagtooga':
+echo htmlentities('http://www.tagtooga.com/tapp/db.exe?c=jsEntryForm&b=fx&title='.get_the_title().'&url='.get_permalink());
+break;
+case 'taggly':
+echo htmlentities('http://www.taggly.com/bookmarks.php/pass?action=add&address='.get_permalink());
 break;
 case 'tailrank':
 echo htmlentities('http://www.tailrank.com/share/?title='.get_the_title().'&link_href='.get_permalink());

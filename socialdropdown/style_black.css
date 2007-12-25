@@ -122,6 +122,10 @@ Note: This file can be swapped with style.css. It is themed after darker colored
 	margin: 0px;
 	padding: 1px;
 }
+.nojavadropcontent p {
+	margin: 5px;
+	padding: 0px;
+}
 .nojavadropcontent .link img{
 	border: 1px solid #DDDDDD;
 	background-color: #FFFFFF;

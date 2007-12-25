@@ -114,6 +114,10 @@
 	margin: 0px;
 	padding: 1px;
 }
+.nojavadropcontent p {
+	margin: 5px;
+	padding: 0px;
+}
 .nojavadropcontent .link img{
 	border: 1px solid #DDDDDD;
 	height: 16px;

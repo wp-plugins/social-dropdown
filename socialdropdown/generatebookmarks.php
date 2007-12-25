@@ -3,25 +3,23 @@
 if(!function_exists('bloginfo')) {
 include('../../../wp-blog-header.php');
 }
-
 //This file is used to generate bookmarks for preview and handles the drag and drop features. It will output customized bookmarks.
 
 //Optional configuration
-$overrideoptions = 'false'; //Set this to true if you want to override some options in the plugin, especially when migrating a manually configured plugin
+$overrideoptions = 'false'; //Set this to true if you want to override some options in the plugin, especially when migrating a manually configured plugin.
+$usenonjavaset = 'false'; //Set this to true if you want to use the set of bookmarks for non-JavaScript users.
 
 function GenerateIMG($type) {
 ?>
-<img alt="<?php GenerateName($type); ?>" src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/<?php echo $type; ?>.png" />
+<img alt="<?php GenerateName($type); ?>" src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/icons/<?php echo $type; ?>.png" />
 <?php
 }
 
 //A handy function for generating bookmarks for config
 function CreateConfigBookmarks() {
 $bookline = get_option('dropdown_query');
-//$bookline = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo,fark|feedmelinks|furl|google|linkagogo|magnolia|netvouz|newsvine|propeller|rawsugar,reddit|rojo|simpy|sphinn|spurl|squidoo|stumbleupon|tailrank|technorati|yahoo';
 //The text generates 3 rows, and includes 10 bookmarks on each
-
-$all = explode("|",'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|fark|feedmelinks|furl|google|linkagogo|magnolia|netvouz|newsvine|propeller|rawsugar|reddit|rojo|simpy|sphinn|spurl|squidoo|stumbleupon|tailrank|technorati|yahoo');
+$all = explode("|",'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|fark|feedmelinks|furl|google|gravee|linkagogo|magnolia|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo');
 echo '<div id="page">';
 //Generates the rows
 $used = array();

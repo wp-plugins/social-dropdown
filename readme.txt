@@ -3,7 +3,7 @@ Contributors: multippt
 Tags: post, social bookmark, bookmark, accessibility
 Requires at least: 1.5
 Tested up to: 2.3.1
-Stable tag: 1.3.3
+Stable tag: 1.4.0
 Donate link: http://www.tevine.com/donate.php
 
 This plugin displays several social bookmarking in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
@@ -12,12 +12,13 @@ This plugin displays several social bookmarking in a dropdown. Unlike other soci
 
 This plugin displays several social bookmarking options in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
 
-Supported Social Bookmarks are:
+Supported Social Bookmarks (35 in total) are:
 
 * BlinkBits
 * BlinkList
 * BlogLines
 * BlogMarks
+* Buddymarks
 * CiteULike
 * Co.mments
 * Del.icio.us
@@ -26,20 +27,25 @@ Supported Social Bookmarks are:
 * Fark
 * Feed Me Links
 * Furl
+* Gravee
 * Google Bookmarks
 * Linkagogo
 * Ma.gnolia
 * NetVouz
 * Newsvine
+* OnlyWire
 * Propeller (replaces Netscape)
 * RawSugar
 * Reddit
 * Rojo
 * Simpy
+* Slashdot
 * Sphinn
 * Spurl
 * Squidoo
 * StumbleUpon
+* Taggly
+* Tagtooga
 * TailRank
 * Technorati
 * Yahoo MyWebs
@@ -116,7 +122,7 @@ In order to add a new bookmark, add the following lines of code after an item [i
 
 In this example, when you call `GenerateURL('yahoo')`, the link for this item is generated. The link is the direct link to the submitting URL, usually available as an API on the social bookmarking site. Within the URL, there is some PHP code. `the_title()` represents the post title, while `echo get_the_permalink()` represents the URL of the post.
 
-After adding the PHP stuff, don't forget to put in `GenerateLink('[name of social bookmark site]')` in `GenerateAll()`
+Within `generatebookmarks.php`, find a variable called `$all`. Add '|[your bookmark name here]' to the end of the string. For example, in the case of Yahoo, if $all contains "google", then the result will be "google|yahoo".
 
 == Frequently Asked Questions ==
 
@@ -136,6 +142,7 @@ Some available screenshots can be found at the [plug-in page](http://www.tevine.
 
 == Changelog ==
 
+* 1.4.0 - Added 5 bookmarks. The plugin can now be installed into any directory. Some minor changes to Dropdown to make it slightly more customizeable by style.css. Non-JavaScript users will see the same bookmarks normal users view. The link to plugin page now links to a help page to help users new to social bookmarking.
 * 1.3.3 - Fixed RawSugar links. Thanks to phprocket for informing the problem.
 * 1.3.2 - Fixed path problems.
 * 1.3.1 - Added file checks.
