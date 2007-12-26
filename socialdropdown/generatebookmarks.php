@@ -5,10 +5,6 @@ include('../../../wp-blog-header.php');
 }
 //This file is used to generate bookmarks for preview and handles the drag and drop features. It will output customized bookmarks.
 
-//Optional configuration
-$overrideoptions = 'false'; //Set this to true if you want to override some options in the plugin, especially when migrating a manually configured plugin.
-$usenonjavaset = 'false'; //Set this to true if you want to use the set of bookmarks for non-JavaScript users.
-
 function GenerateIMG($type) {
 ?>
 <img alt="<?php GenerateName($type); ?>" src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/icons/<?php echo $type; ?>.png" />

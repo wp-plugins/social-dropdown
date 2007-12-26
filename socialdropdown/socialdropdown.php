@@ -2,60 +2,84 @@
 /*
 Plugin Name: Social Dropdown
 Plugin URI: http://www.tevine.com/projects/
-Description: Displays social bookmarks in a dropdown to reduce clutter
+Description: Displays social bookmarks in a dropdown to reduce clutter. Remember to read the readme...
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.4.0
+Version: 1.4.5
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
-/*  Copyright 2007  Nicholas Kwan  (email : ready725@gmail.com)
+/*	Copyright 2007  Nicholas Kwan  (email : ready725@gmail.com)
 
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
+	This program is free software; you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation; either version 2 of the License, or
+	(at your option) any later version.
 
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+	GNU General Public License for more details.
 
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+	You should have received a copy of the GNU General Public License
+	along with this program; if not, write to the Free Software
+	Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
 /*
-    This plugin has minimal link leakage, so you need not worry about it screwing with your SEO.
+	Installation of this plugin requires you to upload the files into a directory, activate the plugin, and insert <?php Show_Dropdown(); ?> in your templates.
+	Icons come with the package so that you don't have to go icon hunting.
+
+	This plugin has minimal link leakage, so you need not worry about it screwing with your SEO.
+
+	If there are problems with this plugin you can:
+	1. Read the readme (seriously)
+	2. Contact ready725@gmail.com
+
+	You can suggest social bookmarks via the Wordpress page which this plugin can be found at
 */
 
-$dropdownversion = '1.4.0';
+//Optional configuration. You can edit these settings.
+$overrideoptions = 'false'; //Set this to true if you want to override some options in the plugin, especially when migrating a manually configured plugin.
+$usenonjavaset = 'false'; //Set this to true if you want to use the set of bookmarks for non-JavaScript users.
 
+//The plugin version number
+$dropdownversion = '1.4.5';
+
+//A file that generates the bookmarks
 include_once('generatebookmarks.php');
 
 function Dropdown_header() {
 ?>
-
 <link rel="stylesheet" href="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/style.css" type="text/css" />
 <script type="text/javascript" src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/dropdown.js"></script>
 <?php
 }
 
-
+//Default values, they will be used in install
 $dropdown_linkback = 'true';
+$dropdown_configmode = 'advanced'; //preload advanced
 $dropdown_query = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo,fark|feedmelinks|furl|google|linkagogo|magnolia|netvouz|newsvine|propeller|rawsugar,reddit|rojo|simpy|sphinn|spurl|squidoo|stumbleupon|tailrank|technorati|yahoo';
+$dropdown_all = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|fark|feedmelinks|furl|google|gravee|linkagogo|magnolia|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo';
+$usedropdown = 'true';
 
 //Install options
 add_option('dropdown_allowlinkback', $dropdown_linkback, 'Allows a link back to the plugin page [Social Dropdown]');
-
 add_option('dropdown_query', $dropdown_query, 'The saved dropdown items [Social Dropdown]');
+add_option('dropdown_use', $usedropdown, 'Use the dropdown [Social Dropdown]');
+add_option('dropdown_configmode', $dropdown_configmode, 'Use a configuration mode [Social Dropdown]');
 
 if (get_option('dropdown_allowlinkback') == '') {
 	update_option('dropdown_allowlinkback', $dropdown_linkback);
 }
 if (get_option('dropdown_query') == '') {
 	update_option('dropdown_query', $dropdown_query);
+}
+if (get_option('dropdown_use') == '') {
+	update_option('dropdown_use', $usedropdown);
+}
+if (get_option('dropdown_configmode') == '') {
+	update_option('dropdown_configmode', $dropdown_configmode);
 }
 
 if (get_option('dropdown_allowlinkback') != $dropdown_linkback) {
@@ -64,57 +88,116 @@ if (get_option('dropdown_allowlinkback') != $dropdown_linkback) {
 if (get_option('dropdown_query') != $dropdown_query) {
 	$dropdown_query = get_option('dropdown_query');
 }
+if (get_option('dropdown_use') != $usedropdown) {
+	$usedropdown = get_option('dropdown_use');
+}
+if (get_option('dropdown_configmode') != $dropdown_configmode) {
+	$dropdown_configmode = get_option('dropdown_configmode');
+}
 
+//Gives the path of the plugin for use in PHP
 function GetDropPluginPath() {
-$cleanabs = str_replace("/","\\", ABSPATH);
-return str_replace($cleanabs, '', dirname(__FILE__));
+	$cleanabs = str_replace("/","\\", ABSPATH);
+	return str_replace($cleanabs, '', dirname(__FILE__));
+}
+
+//A function for handling updating of options
+function UpdateDropOptions() {
+global $dropdown_all;
+$all = explode("|",$dropdown_all);
+if ($_POST) {
+//the bookmarks
+	if ($_POST['dropdown_configmode'] == 'basic') {
+
+		$booklineexit = '';
+		$offset = (integer) $_POST['offset'];
+		$validoff = 0;
+		$offsetno = 1;
+		for ($counter = 0; $counter < count($all); $counter += 1) {
+		$value = (string) $_POST[$all[$counter]];
+			if ($value=="1"){
+				if ($booklineexit != '') {
+					if ($validoff == ($offset * $offsetno)) {
+						$separate = ',';
+						$offsetno += 1;
+					} else {
+						$separate = '|';
+					}
+					$booklineexit .= $separate.$all[$counter];
+				} else {
+					$booklineexit = $all[$counter];
+				}
+				$validoff += 1;
+			}
+		}
+		update_option('dropdown_query',$booklineexit);
+	} else {
+		update_option('dropdown_query',$_POST['dropdown_query']);
+	}
+
+//updates checkboxes in check_options input
+	if($_POST['check_options'] != '') {
+		$options = explode(',', $_POST['check_options']);
+		for ($counter = 0; $counter < count($options); $counter += 1) {
+			if ($_POST[$options[$counter]]=="1"){
+				update_option($options[$counter], 'true');
+			} else {
+				update_option($options[$counter], 'false');			
+			}
+		}
+
+	}
+
+//updates other options like what wordpress would do, i.e. via page_options input
+	if($_POST['page_options'] != '') {
+		$options = explode(',', $_POST['page_options']);
+		for ($counter = 0; $counter < count($options); $counter += 1) {
+			if ($_POST[$options[$counter]] != '')
+				update_option($options[$counter], $_POST[$options[$counter]]);
+		}
+
+	}
+
+//When everything is done...
+	echo '<div id="message" class="updated fade"><p><strong>Options saved.</strong></p></div>';
+}
 }
 
 function Dropdown_optionspage() {
+global $dropdown_all;
 	switch ($task) {
 	case '':
-//Options page
+	//Options page
 ?>
 <div class="wrap">
 <h2><?php _e('Social Dropdown configuration'); ?></h2>
 <?php
 error_reporting(0); //Don't show errors
+UpdateDropOptions();
+
 if(fopen(ABSPATH.GetDropPluginPath()."/ping.php","r")) {
 ?>
-<form method="post" action="options.php">
-
+<form method="post">
 <?php wp_nonce_field('update-options'); ?>
 <p class="submit">
 <input type="submit" name="Submit" value="<?php _e('Update Options &raquo;') ?>" />
 </p>
 <p><?php _e('You can configure some options through this panel.'); ?></p>
 <h3>Customize bookmarks</h3>
-<?php
-if(fopen(ABSPATH.GetDropPluginPath()."/thescripts/ping.php","r")) {
-include('configinterface.php');
-} else {
-?>
-<p>Some required files are missing. Please check for the following files:<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/builder.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/controls.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/dragdrop.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/effects.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/prototype.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/scriptaculous.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/slider.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/sound.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/unittest.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/ping.php</p>
-<?php
-}
-?>
+<?php include('configinterface.php'); ?>
+
 <h3>Other options</h3>
 <p>Display a link to the plugin's homepage (the page also contains some help for users not familiar with social bookmarking).<br />
 <input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="true" <?php if (get_option('dropdown_allowlinkback') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
 <input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="false" <?php if (get_option('dropdown_allowlinkback') != 'true') { echo ' checked="checked"'; } ?> /><?php _e('No'); ?></p>
 
+<p>Use dropdown (setting this to no will show bookmarks without the dropdown, making it similar to other social bookmark plugins)<br />
+<input type="radio" name="dropdown_use" id="dropdown_use" value="true" <?php if (get_option('dropdown_use') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
+<input type="radio" name="dropdown_use" id="dropdown_use" value="false" <?php if (get_option('dropdown_use') != 'true') { echo ' checked="checked"'; } ?> /><?php _e('No'); ?></p>
+
+
 <input type="hidden" name="action" value="update" />
-<input type="hidden" name="page_options" value="dropdown_allowlinkback,dropdown_query" />
+<input type="hidden" name="page_options" value="dropdown_allowlinkback,dropdown_use,dropdown_configmode" />
 
 
 
@@ -139,9 +222,9 @@ echo 'The plugin is not installed properly. Please install it at the &quot;wp-co
 function Dropdown_Updatecheck() {
 global $dropdownversion;
 //Checks for an update
-$fp = fsockopen("www.tevine.com", 80, $errno, $errstr, 30); //Will output an error anyway if it fails
+$fp = @fsockopen("www.tevine.com", 80, $errno, $errstr, 30); //suppress errors
 if (!$fp) {
-    echo "<p>Sorry, but the plugin cannot be checked if it is the latest revision. </p>\n";
+    echo "<p>The current revision of the plugin is ".$dropdownversion.". Updates can be found at the <a href=\"http://www.tevine.com/projects/socialdropdown/\" title=\"Social Dropdown\">plugin page</a>.</p>\n";
 } else {
     $out = "GET /projects/socialdropdown/latest.txt HTTP/1.1\r\n";
     $out .= "Host: www.tevine.com\r\n";
@@ -158,17 +241,37 @@ $fitm = '';
       $pos      = strpos($fitm, "\r\n\r\n");
       $response = substr($fitm, $pos + 4);
 	$response = (string) $response;
-if ($response != $dropdownversion) {
-	echo '<p>A newer version is available - '.$response.'. Please <a href="http://www.tevine.com/projects/socialdropdown/" title="Social Dropdown downloa">update</a>.</p>';
+if (Dropdown_Checkversion($response)) {
+	echo '<p>A newer version is available - '.$response.'. Please <a href="http://www.tevine.com/projects/socialdropdown/" title="Social Dropdown">update</a>.</p>';
 } else {
 	echo '<p>You are currently using the latest version.</p>';
 }
 }
 
+//A function that mimics how wordpress deals with version numbers
+function Dropdown_Checkversion($version) {
+global $dropdownversion;
+$verfrag = explode('.',$version);
+$plufrag = explode('.',$dropdownversion);
+//Check 3 levels only
+if (((int) $verfrag[0]) > ((int) $plufrag[0])) {
+	return true;
+} else {
+	if (((int) $verfrag[1]) > ((int) $plufrag[1])) {
+		return true;
+	} else {
+		if (((int) $verfrag[2]) > ((int) $plufrag[2])) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+}
+}
 
 function Dropdown_options() {
 	if (function_exists('add_options_page')) {
-	add_options_page("Social Dropdown", "Social Dropdown", 8, "dropdownconfig", "Dropdown_optionspage");
+		add_options_page("Social Dropdown", "Social Dropdown", 8, "dropdownconfig", "Dropdown_optionspage");
 	}
 }
 
@@ -254,7 +357,7 @@ GenerateLink('yahoo');
 $isfirst = '';
 
 function Show_Dropdown() {
-global $isfirst;
+global $isfirst, $usedropdown, $usenonjavaset;
 ?>
 <div id="dropdisp<?php the_ID(); ?>"><div class="nojavadropcontent" style="text-align: center;"><p>Bookmark this article!<?php if (get_option('dropdown_allowlinkback') != 'false') { ?> <span><a style="color: #CCCCCC;"  rel="<?php if ($isfirst == '' && is_home()) { $isfirst = 'false'; } else { echo 'nofollow'; } ?>" href="http://www.tevine.com/projects/socialdropdown/" title="About Social Dropdown">[?]</a></span><?php } ?></p><p><?php
 if ($usenonjavaset == 'true') {
@@ -264,10 +367,11 @@ NoJavaGenerateAll();
 GenerateAll();
 }
 ?></p></div></div>
+<?php if($usedropdown == 'true') { ?>
 <script type="text/javascript">
 <!--/*--><![CDATA[/*><!--*/
 var menu<?php the_ID(); ?>=new Array()
-menu<?php the_ID(); ?>[0]= '<div class="dropcontent"><p>Bookmark this article! <a style="color: #CCCCCC;" href="http://www.tevine.com/projects/socialdropdown" title="What is Social Dropdown">[?]</a></p><p><?php
+menu<?php the_ID(); ?>[0]= '<div class="dropcontent"><p>Bookmark this article!<?php if (get_option('dropdown_allowlinkback') != 'false') { ?> <span><a style="color: #CCCCCC;" href="http://www.tevine.com/projects/socialdropdown/" title="About Social Dropdown">[?]</a></span><?php } ?></p><p><?php
 GenerateAll();
 ?></p><?php if (get_option('dropdown_allowlinkback') != 'false') { ?><?php } ?></div>';
 var droptext = "<p class=\"taskbuttoncontainer\"><span class=\"booktaskbutton\"><a class=\"bookbutton\" id=\"bookbutton<?php the_ID(); ?>\" href=\"javascript:void(0);\" onclick=\"return dropdownmenu(document.getElementById('bookbutton<?php the_ID(); ?>'), event, menu<?php the_ID(); ?>, '300px', document.getElementById('bookdropbutton<?php the_ID(); ?>'))\" onmouseout=\"\" title=\"Bookmarking options\">Bookmark This</a><a class=\"dropdownbutton\" id=\"bookdropbutton<?php the_ID(); ?>\" href=\"javascript:void(0);\" onclick=\"return dropdownmenu(document.getElementById('bookbutton<?php the_ID(); ?>'), event, menu<?php the_ID(); ?>, '300px', document.getElementById('bookdropbutton<?php the_ID(); ?>'))\" onmouseout=\"\" title=\"Bookmarking options\">&nbsp;</a></span> </p>";
@@ -276,6 +380,7 @@ itemdrop.innerHTML = droptext;
 /*]]>*/-->
 </script>
 <?php
+}
 }
 
 function GenerateLink($type) {

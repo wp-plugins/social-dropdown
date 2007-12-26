@@ -3,7 +3,7 @@ Contributors: multippt
 Tags: post, social bookmark, bookmark, accessibility
 Requires at least: 1.5
 Tested up to: 2.3.1
-Stable tag: 1.4.0
+Stable tag: 1.4.5
 Donate link: http://www.tevine.com/donate.php
 
 This plugin displays several social bookmarking in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
@@ -52,11 +52,15 @@ Supported Social Bookmarks (35 in total) are:
 
 In addition, you can customize the order of the bookmarks or choose to remove some of them without editing a file.
 
+If you do not like Dropdowns, this plugin has the ability to show the bookmarks without the dropdown - similar to what other plugins display.
+
+Remember to **read the readme file** to ensure that you have done what is needed.
+
 == Installation ==
 
 By installing the plugin, you agree to [Tevine's policies](http://www.tevine.com/policies.php "Tevine's Policies").
 
-1. Upload the **"socialdropdown"** folder into the "/wp-content/plugins/" directory. The folder should consist of several files and folders:
+1. Upload the **"social-dropdown"** (actually, any directory will do) folder into the "/wp-content/plugins/" directory. The folder should consist of several files and folders:
 
 * readme.txt
 * LICENSE.txt
@@ -71,7 +75,7 @@ By installing the plugin, you agree to [Tevine's policies](http://www.tevine.com
 
 2. Login to your Wordpress Administration Panel
 
-3. Go to the plugins tab, and activate the "Social Dropdown" plug-in. If there are no error messages, the plugin is properly installed.
+3. Go to the plugins tab, and activate the "Social Dropdown" plug-in. If there are no error messages (e.g. in the options panel or else-where), the plugin is properly installed.
 
 4. Insert `<?php Show_Dropdown(); ?>` at where you want the social bookmarks to be displayed. This line of code should be placed within the Wordpress loop (i.e. the place where your posts appear).
 
@@ -127,7 +131,7 @@ Within `generatebookmarks.php`, find a variable called `$all`. Add '|[your bookm
 == Frequently Asked Questions ==
 
 **How do you re-arrange bookmarks?**
-Version 1.30 and above of this plug-in supports the customization of bookmarks. In order to customize your bookmarks, use the drag and drop feature in `Options > Social Dropdown`.
+Version 1.30 and above of this plug-in supports the customization of bookmarks via administration panel. In order to customize your bookmarks, use the drag and drop feature in `Options > Social Dropdown`.
 
 **There's something wrong with your plugin**
 If you found any problems, please reach me at ready725 at gmail. 
@@ -142,6 +146,7 @@ Some available screenshots can be found at the [plug-in page](http://www.tevine.
 
 == Changelog ==
 
+* 1.4.5 - Added ability for non-JavaScript users to customize the plugin via admin panel. Plugin now has another mode of customization where bookmarks can be simply enabled and disabled (this mode of customization does not allow rearranging of plugins). The dropdown can also be disabled in this version, making it look similar to other social bookmarking plugins. Fixed version number check. Fixed no link option.
 * 1.4.0 - Added 5 bookmarks. The plugin can now be installed into any directory. Some minor changes to Dropdown to make it slightly more customizeable by style.css. Non-JavaScript users will see the same bookmarks normal users view. The link to plugin page now links to a help page to help users new to social bookmarking.
 * 1.3.3 - Fixed RawSugar links. Thanks to phprocket for informing the problem.
 * 1.3.2 - Fixed path problems.
