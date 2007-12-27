@@ -5,7 +5,7 @@ Plugin URI: http://www.tevine.com/projects/
 Description: Displays social bookmarks in a dropdown to reduce clutter. Remember to read the readme...
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.4.5
+Version: 1.4.6
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
@@ -44,7 +44,7 @@ $overrideoptions = 'false'; //Set this to true if you want to override some opti
 $usenonjavaset = 'false'; //Set this to true if you want to use the set of bookmarks for non-JavaScript users.
 
 //The plugin version number
-$dropdownversion = '1.4.5';
+$dropdownversion = '1.4.6';
 
 //A file that generates the bookmarks
 include_once('generatebookmarks.php');
@@ -172,10 +172,14 @@ global $dropdown_all;
 <div class="wrap">
 <h2><?php _e('Social Dropdown configuration'); ?></h2>
 <?php
+@include('ping.php');
+if (!function_exists('Dropdown_CheckIntegrity')) {
+echo '<p>The plugin may not be installed properly as certain files are missing.</p>';
+}
+?>
+<?php
 error_reporting(0); //Don't show errors
 UpdateDropOptions();
-
-if(fopen(ABSPATH.GetDropPluginPath()."/ping.php","r")) {
 ?>
 <form method="post">
 <?php wp_nonce_field('update-options'); ?>
@@ -209,10 +213,7 @@ if(fopen(ABSPATH.GetDropPluginPath()."/ping.php","r")) {
 <p>This plug-in does not interfere with your site's search engine optimisation (SEO) as most links are &quot;nofollowed&quot;.</p>
 <?php Dropdown_Updatecheck(); ?>
 </form>
-<?php } else {
-echo 'The plugin is not installed properly. Please install it at the &quot;wp-content/plugins/<strong>social-dropdown</strong>/&quot; directory.';
-}
- ?>
+
 </div>
 <?php
 	break;

@@ -138,10 +138,6 @@ echo ' /> '.$all[$counter]."\r\n";
 </ul>
 </div>
 <div id="dropconfigadvanced" class="zerosize">
-<?php
-if(fopen(ABSPATH.GetDropPluginPath()."/thescripts/ping.php","r")) {
-//Load Drag drop
-?>
 
 <script type="text/javascript" src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/ajax.js"></script>
 <script type="text/javascript" src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/prototype.js"></script>
@@ -275,24 +271,8 @@ Preview<br />
 <?php CreateConfigBookmarks(); ?>
 
 </div>
-<?php
-} else {
-?>
-<p>Some required files are missing. Please check for the following files:<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/builder.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/controls.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/dragdrop.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/effects.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/prototype.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/scriptaculous.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/slider.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/sound.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/unittest.js<br />
--<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/thescripts/ping.php</p>
-<?php
-}
-?>
 </div>
+
 <script type="text/javascript">
 var configmode = document.getElementById('dropdown_configmode');
 var buttonmode = document.getElementById('configchange');
