@@ -10,7 +10,7 @@ This plugin displays several social bookmarking in a dropdown. Unlike other soci
 
 == Description ==
 
-NOTE: Please update to 1.4.7. This update fixes a problem found when using the plugin in linux servers.
+NOTE: Please update to 1.4.7. This update fixes a problem found when using the plugin in linux servers. If you would like to use an older version, version 1.2.2 is the most stable version of the plugin.
 
 This plugin displays several social bookmarking options in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
 
