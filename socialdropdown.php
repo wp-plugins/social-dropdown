@@ -5,7 +5,7 @@ Plugin URI: http://www.tevine.com/projects/
 Description: Displays social bookmarks in a dropdown to reduce clutter. Remember to read the readme...
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.4.6
+Version: 1.4.7
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
@@ -98,7 +98,7 @@ if (get_option('dropdown_configmode') != $dropdown_configmode) {
 //Gives the path of the plugin for use in PHP
 function GetDropPluginPath() {
 	$cleanabs = str_replace("/","\\", ABSPATH);
-	return str_replace($cleanabs, '', dirname(__FILE__));
+	return str_replace($cleanabs, '', str_replace("/","\\", dirname(__FILE__)));
 }
 
 //A function for handling updating of options
