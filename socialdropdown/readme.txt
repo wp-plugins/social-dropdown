@@ -146,7 +146,7 @@ Some available screenshots can be found at the [plug-in page](http://www.tevine.
 
 == Changelog ==
 
-* 1.4.7 - IMPORTANT FIX. This fix fixes a problem found in linux servers.
+* 1.4.7 - IMPORTANT FIX. This fix fixes a problem found in linux servers. Another small fix has been addressed.
 * 1.4.6 - Edited file check so that it works on all environments.
 * 1.4.5 - Added ability for non-JavaScript users to customize the plugin via admin panel. Plugin now has another mode of customization where bookmarks can be simply enabled and disabled (this mode of customization does not allow rearranging of plugins). The dropdown can also be disabled in this version, making it look similar to other social bookmarking plugins. Fixed version number check. Fixed no link option.
 * 1.4.0 - Added 5 bookmarks. The plugin can now be installed into any directory. Some minor changes to Dropdown to make it slightly more customizeable by style.css. Non-JavaScript users will see the same bookmarks normal users view. The link to plugin page now links to a help page to help users new to social bookmarking.

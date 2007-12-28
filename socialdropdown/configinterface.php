@@ -265,7 +265,7 @@ function UpdatePreview() {
 <hr />
 <div name="preview" id="preview" class="previewcontainer">
 Preview<br />
-<div class="displaypreview" id="dispprev"><img src="<?php echo get_settings('siteurl'); ?>/wp-content/plugins/socialdropdown/icons/loading.png" /> Preview coming up...</div>
+<div class="displaypreview" id="dispprev"><img src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/icons/loading.png" /> Preview coming up...</div>
 <hr />
 </div>
 <?php CreateConfigBookmarks(); ?>
