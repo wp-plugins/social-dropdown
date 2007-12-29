@@ -44,7 +44,7 @@ $overrideoptions = 'false'; //Set this to true if you want to override some opti
 $usenonjavaset = 'false'; //Set this to true if you want to use the set of bookmarks for non-JavaScript users.
 
 //The plugin version number
-$dropdownversion = '1.4.6';
+$dropdownversion = '1.4.7';
 
 //A file that generates the bookmarks
 include_once('generatebookmarks.php');
