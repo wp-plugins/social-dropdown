@@ -47,7 +47,7 @@
 	border-left: 1px solid #EEEEEE;
 }
 .booktaskbutton .bookbutton {
-	color: #0066CC;
+	/*color: #0066CC;*/
 	background-image: url('icons/bookmark.png');
 	background-repeat: no-repeat;
 	background-position: 2px 2px; 
@@ -105,6 +105,7 @@
 	text-align: center;
 }
 .dropmenudiv .dropcontent p{
+	padding: 0px;
 	margin: 5px;
 }
 .dropmenudiv .dropcontent .link img{

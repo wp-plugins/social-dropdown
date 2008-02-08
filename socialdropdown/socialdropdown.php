@@ -5,7 +5,7 @@ Plugin URI: http://www.tevine.com/projects/
 Description: Displays social bookmarks in a dropdown to reduce clutter. Remember to read the readme...
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.4.7
+Version: 1.4.8
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
@@ -44,7 +44,7 @@ $overrideoptions = 'false'; //Set this to true if you want to override some opti
 $usenonjavaset = 'false'; //Set this to true if you want to use the set of bookmarks for non-JavaScript users.
 
 //The plugin version number
-$dropdownversion = '1.4.7';
+$dropdownversion = '1.4.8';
 
 //A file that generates the bookmarks
 include_once('generatebookmarks.php');
@@ -60,7 +60,7 @@ function Dropdown_header() {
 $dropdown_linkback = 'true';
 $dropdown_configmode = 'advanced'; //preload advanced
 $dropdown_query = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo,fark|feedmelinks|furl|google|linkagogo|magnolia|netvouz|newsvine|propeller|rawsugar,reddit|rojo|simpy|sphinn|spurl|squidoo|stumbleupon|tailrank|technorati|yahoo';
-$dropdown_all = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|fark|feedmelinks|furl|google|gravee|linkagogo|magnolia|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo';
+$dropdown_all = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|facebook|fark|feedmelinks|furl|google|gravee|linkagogo|magnolia|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo';
 $usedropdown = 'true';
 
 //Install options
@@ -425,6 +425,9 @@ break;
 case 'diigo':
 echo 'Diigo';
 break;
+case 'facebook':
+echo 'Facebook';
+break;
 case 'feedmelinks':
 echo 'Feed Me Links';
 break;
@@ -478,6 +481,9 @@ echo 'Squidoo';
 break;
 case 'stumbleupon':
 echo 'StumbleUpon';
+break;
+case 'tagthat':
+echo 'Tagthat';
 break;
 case 'tagtooga':
 echo 'Tagtooga';
@@ -543,6 +549,9 @@ break;
 case 'feedmelinks':
 echo htmlentities('http://www.feedmelinks.com/categorize?from=toolbar&op=submit&name='.get_the_title().'&url='.get_permalink());
 break;
+case 'facebook' :
+echo htmlentities('http://www.facebook.com/share.php?u='.get_permalink());
+break;
 case 'fark':
 echo htmlentities(' http://cgi.fark.com/cgi/fark/edit.pl?new_url='.get_permalink().'&new_comment='.get_the_title());
 break;
@@ -593,6 +602,10 @@ echo htmlentities('http://www.squidoo.com/lensmaster/bookmark?'.get_permalink())
 break;
 case 'stumbleupon':
 echo htmlentities('http://www.stumbleupon.com/submit?url='.get_permalink().'&title='.get_the_title());
+break;
+case 'tagthat':
+//German bookmarking site as requested, but this is not enabled by default
+echo htmlentities('http://www.tagthat.de/bookmarken.php?action=neu&url='.get_permalink().'&title='.get_the_title());
 break;
 case 'tagtooga':
 echo htmlentities('http://www.tagtooga.com/tapp/db.exe?c=jsEntryForm&b=fx&title='.get_the_title().'&url='.get_permalink());

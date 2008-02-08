@@ -15,7 +15,7 @@ function GenerateIMG($type) {
 function CreateConfigBookmarks() {
 $bookline = get_option('dropdown_query');
 //The text generates 3 rows, and includes 10 bookmarks on each
-$all = explode("|",'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|fark|feedmelinks|furl|google|gravee|linkagogo|magnolia|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo');
+$all = explode("|",'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|fark|facebook|feedmelinks|furl|google|gravee|linkagogo|magnolia|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo');
 echo '<div id="page">';
 //Generates the rows
 $used = array();

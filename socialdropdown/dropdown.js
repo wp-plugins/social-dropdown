@@ -37,7 +37,7 @@ dropmenuobj.widthobj.width=menuwidth
 }
 if (e.type=="click" && obj.visibility==hidden || e.type=="mouseover") {
 obj.visibility=visible
-dropbutton.setAttribute("class", "dropdownbuttonoon"); 
+dropbutton.setAttribute("class", "dropdownbuttonon"); 
 dropbutton.setAttribute("className", "dropdownbuttonon"); 
 }
 else { if (e.type=="click") {
