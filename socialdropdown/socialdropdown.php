@@ -1,11 +1,11 @@
 <?php
 /*
 Plugin Name: Social Dropdown
-Plugin URI: http://www.tevine.com/projects/
+Plugin URI: http://www.tevine.com/projects/socialdropdown/
 Description: Displays social bookmarks in a dropdown to reduce clutter. Remember to read the readme...
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.4.8
+Version: 1.4.9
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
@@ -44,7 +44,7 @@ $overrideoptions = 'false'; //Set this to true if you want to override some opti
 $usenonjavaset = 'false'; //Set this to true if you want to use the set of bookmarks for non-JavaScript users.
 
 //The plugin version number
-$dropdownversion = '1.4.8';
+$dropdownversion = '1.4.9';
 
 //A file that generates the bookmarks
 include_once('generatebookmarks.php');
@@ -59,8 +59,9 @@ function Dropdown_header() {
 //Default values, they will be used in install
 $dropdown_linkback = 'true';
 $dropdown_configmode = 'advanced'; //preload advanced
-$dropdown_query = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo,fark|feedmelinks|furl|google|linkagogo|magnolia|netvouz|newsvine|propeller|rawsugar,reddit|rojo|simpy|sphinn|spurl|squidoo|stumbleupon|tailrank|technorati|yahoo';
-$dropdown_all = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|facebook|fark|feedmelinks|furl|google|gravee|linkagogo|magnolia|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo';
+$dropdown_query = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo,fark|feedmelinks|furl|google|linkagogo|magnolia|misterwong|newsvine|propeller|rawsugar,reddit|rojo|simpy|sphinn|spurl|squidoo|stumbleupon|tailrank|technorati|yahoo';
+$dropdown_all = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|facebook|fark|feedmelinks|furl|google|gravee|linkagogo|magnolia|misterwong|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo';
+$dropdown_width = '300px';
 $usedropdown = 'true';
 
 //Install options
@@ -75,6 +76,9 @@ if (get_option('dropdown_allowlinkback') == '') {
 if (get_option('dropdown_query') == '') {
 	update_option('dropdown_query', $dropdown_query);
 }
+if (get_option('dropdown_width') == '') {
+	update_option('dropdown_width', $dropdown_width);
+}
 if (get_option('dropdown_use') == '') {
 	update_option('dropdown_use', $usedropdown);
 }
@@ -87,6 +91,9 @@ if (get_option('dropdown_allowlinkback') != $dropdown_linkback) {
 }
 if (get_option('dropdown_query') != $dropdown_query) {
 	$dropdown_query = get_option('dropdown_query');
+}
+if (get_option('dropdown_width') != $dropdown_width) {
+	$dropdown_width = get_option('dropdown_width');
 }
 if (get_option('dropdown_use') != $usedropdown) {
 	$usedropdown = get_option('dropdown_use');
@@ -191,7 +198,7 @@ UpdateDropOptions();
 <?php include('configinterface.php'); ?>
 
 <h3>Other options</h3>
-<p>Display a link to the plugin's homepage (the page also contains some help for users not familiar with social bookmarking).<br />
+<p>Display a link to the plugin's homepage (certainly appreciated).<br />
 <input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="true" <?php if (get_option('dropdown_allowlinkback') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
 <input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="false" <?php if (get_option('dropdown_allowlinkback') != 'true') { echo ' checked="checked"'; } ?> /><?php _e('No'); ?></p>
 
@@ -199,9 +206,15 @@ UpdateDropOptions();
 <input type="radio" name="dropdown_use" id="dropdown_use" value="true" <?php if (get_option('dropdown_use') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
 <input type="radio" name="dropdown_use" id="dropdown_use" value="false" <?php if (get_option('dropdown_use') != 'true') { echo ' checked="checked"'; } ?> /><?php _e('No'); ?></p>
 
+<?php if (get_option('dropdown_use') == 'true') { ?>
+<p>Dropdown width (width of the dropdown, default is 300px)<br />
+<input type="text" name="dropdown_width" id="dropdown_width" value="<?php echo get_option('dropdown_width'); ?>" />
 
+<?php } else { ?>
+<input type="hidden" name="dropdown_width" id="dropdown_width" value="<?php echo get_option('dropdown_width'); ?>" />
+<?php } ?>
 <input type="hidden" name="action" value="update" />
-<input type="hidden" name="page_options" value="dropdown_allowlinkback,dropdown_use,dropdown_configmode" />
+<input type="hidden" name="page_options" value="dropdown_allowlinkback,dropdown_use,dropdown_configmode,dropdown_width" />
 
 
 
@@ -305,7 +318,7 @@ GenerateLink('furl');
 GenerateLink('google');
 GenerateLink('linkagogo');
 GenerateLink('magnolia');
-GenerateLink('netvouz');
+GenerateLink('misterwong');
 GenerateLink('newsvine');
 GenerateLink('propeller');
 GenerateLink('reddit');
@@ -358,7 +371,7 @@ GenerateLink('yahoo');
 $isfirst = '';
 
 function Show_Dropdown() {
-global $isfirst, $usedropdown, $usenonjavaset;
+global $isfirst, $usedropdown, $usenonjavaset, $dropdown_width;
 ?>
 <div id="dropdisp<?php the_ID(); ?>"><div class="nojavadropcontent" style="text-align: center;"><p>Bookmark this article!<?php if (get_option('dropdown_allowlinkback') != 'false') { ?> <span><a style="color: #CCCCCC;"  rel="<?php if ($isfirst == '' && is_home()) { $isfirst = 'false'; } else { echo 'nofollow'; } ?>" href="http://www.tevine.com/projects/socialdropdown/" title="About Social Dropdown">[?]</a></span><?php } ?></p><p><?php
 if ($usenonjavaset == 'true') {
@@ -372,10 +385,10 @@ GenerateAll();
 <script type="text/javascript">
 <!--/*--><![CDATA[/*><!--*/
 var menu<?php the_ID(); ?>=new Array()
-menu<?php the_ID(); ?>[0]= '<div class="dropcontent"><p>Bookmark this article!<?php if (get_option('dropdown_allowlinkback') != 'false') { ?> <span><a style="color: #CCCCCC;" href="http://www.tevine.com/projects/socialdropdown/" title="About Social Dropdown">[?]</a></span><?php } ?></p><p><?php
+menu<?php the_ID(); ?>[0]= '<div class="dropcontent"><p>Bookmark this article!<?php if (get_option('dropdown_allowlinkback') != 'false') { ?> <span><a style="color: #CCCCCC;" href="http://www.tevine.com/projects/socialdropdown/" rel="nofollow" title="Social Dropdown">[?]</a></span><?php } ?></p><p><?php
 GenerateAll();
 ?></p><?php if (get_option('dropdown_allowlinkback') != 'false') { ?><?php } ?></div>';
-var droptext = "<p class=\"taskbuttoncontainer\"><span class=\"booktaskbutton\"><a class=\"bookbutton\" id=\"bookbutton<?php the_ID(); ?>\" href=\"javascript:void(0);\" onclick=\"return dropdownmenu(document.getElementById('bookbutton<?php the_ID(); ?>'), event, menu<?php the_ID(); ?>, '300px', document.getElementById('bookdropbutton<?php the_ID(); ?>'))\" onmouseout=\"\" title=\"Bookmarking options\">Bookmark This</a><a class=\"dropdownbutton\" id=\"bookdropbutton<?php the_ID(); ?>\" href=\"javascript:void(0);\" onclick=\"return dropdownmenu(document.getElementById('bookbutton<?php the_ID(); ?>'), event, menu<?php the_ID(); ?>, '300px', document.getElementById('bookdropbutton<?php the_ID(); ?>'))\" onmouseout=\"\" title=\"Bookmarking options\">&nbsp;</a></span> </p>";
+var droptext = "<p class=\"taskbuttoncontainer\"><span class=\"booktaskbutton\"><a class=\"bookbutton\" id=\"bookbutton<?php the_ID(); ?>\" href=\"javascript:void(0);\" onclick=\"return dropdownmenu(document.getElementById('bookbutton<?php the_ID(); ?>'), event, menu<?php the_ID(); ?>, '<?php echo $dropdown_width; ?>', document.getElementById('bookdropbutton<?php the_ID(); ?>'))\" onmouseout=\"\" title=\"Bookmarking options\">Bookmark This</a><a class=\"dropdownbutton\" id=\"bookdropbutton<?php the_ID(); ?>\" href=\"javascript:void(0);\" onclick=\"return dropdownmenu(document.getElementById('bookbutton<?php the_ID(); ?>'), event, menu<?php the_ID(); ?>, '<?php echo $dropdown_width; ?>', document.getElementById('bookdropbutton<?php the_ID(); ?>'))\" onmouseout=\"\" title=\"Bookmarking options\">&nbsp;</a></span> </p>";
 var itemdrop = document.getElementById('dropdisp<?php the_ID(); ?>');
 itemdrop.innerHTML = droptext;
 /*]]>*/-->
@@ -448,6 +461,9 @@ echo 'Linkagogo';
 break;
 case 'magnolia':
 echo 'ma.gnolia';
+break;
+case 'misterwong':
+echo 'Mister Wong';
 break;
 case 'netvouz':
 echo 'Netvouz';
@@ -569,6 +585,9 @@ echo htmlentities('http://www.linkagogo.com/go/AddNoPopup?title='.get_the_title(
 break;
 case 'magnolia':
 echo htmlentities('http://ma.gnolia.com/bookmarklet/add?url='.get_permalink().'&title='.get_the_title());
+break;
+case 'misterwong':
+echo htmlentities('http://www.mister-wong.com/index.php?action=addurl&bm_url='.get_permalink().'&bm_description='.get_the_title());
 break;
 case 'netvouz':
 echo htmlentities('http://www.netvouz.com/action/submitBookmark?url='.get_permalink().'&title='.get_the_title().'&popup=no');

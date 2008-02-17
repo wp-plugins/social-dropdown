@@ -256,11 +256,10 @@ function UpdatePreview() {
 <div class="configwidget">
 	<div id="createNew">
 		<h3>Information</h3>
-		<p>Drag and drop the social bookmarks into the grey boxes for them to be included. Drag bookmarks into the green box (Unused social bookmarks) for them to be not included.</p>
-		<p>You can organise bookmarks into rows by dragging them into the separate grey boxes. You can add new rows by clicking on the '<strong>Add new row</strong>' button. Rows can be rearranged by simply dragging the top handle of the grey box. Empty rows will be ignored when generating the bookmarks.</p>
-		<p>Note: It is advisible not to put more than 10 bookmarks per row.</p>
+		<p>Drag and drop the social bookmarks into the grey boxes for them to be included. Drag bookmarks into the green box (Unused Social Bookmarks) for them to be not included.</p>
+		<p>You can organise bookmarks into rows by dragging them into the separate grey boxes. You can add new rows by clicking on the '<strong>Add New Row</strong>' button. Rows can be rearranged by simply dragging the top handle of the grey box. Empty rows will be ignored when generating the bookmarks.</p>
 		<p style="margin: 15px 5px 5px 5px;">Once done customizing your bookmarks, click on the '<strong>Update Options &raquo;</strong>' button to save your changes.</p>
-		<p><input type="hidden" id="sectionName" size="25"><input type="button" onClick="createNewSection();" value="Add new row"><input type="hidden" id="dropdown_query" name="dropdown_query" value="<?php echo get_option('dropdown_allowlinkback'); ?>" /></p>
+		<p><input type="hidden" id="sectionName" size="25"><input type="button" onClick="createNewSection();" value="Add New Row"><input type="hidden" id="dropdown_query" name="dropdown_query" value="<?php echo get_option('dropdown_allowlinkback'); ?>" /></p>
 	</div>
 <hr />
 <div name="preview" id="preview" class="previewcontainer">
@@ -289,7 +288,7 @@ function ChangeMode() {
 		itemmode1.setAttribute("class", "zerosize"); 
 		itemmode1.setAttribute("className", "zerosize"); 
 		configmode.value = 'advanced';
-		buttonmode.value = 'Switch to basic';
+		buttonmode.value = 'Switch To Basic';
 	} else {
 		itemmode2.setAttribute("class", "zerosize"); 
 		itemmode2.setAttribute("className", "zerosize"); 
@@ -298,7 +297,7 @@ function ChangeMode() {
 		itemmode1.setAttribute("class", ""); 
 		itemmode1.setAttribute("className", ""); 
 		configmode.value = 'basic';
-		buttonmode.value = 'Switch to advanced';
+		buttonmode.value = 'Switch To Advanced';
 	}
 	if (confprev != '') {
 		configmessage.innerHTML = 'Any changes made to the previous mode will be lost if you click &quot;Update Options&quot;. You can revert to the previous mode if you want to preserve your changes.';

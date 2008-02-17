@@ -14,8 +14,7 @@ function GenerateIMG($type) {
 //A handy function for generating bookmarks for config
 function CreateConfigBookmarks() {
 $bookline = get_option('dropdown_query');
-//The text generates 3 rows, and includes 10 bookmarks on each
-$all = explode("|",'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|fark|facebook|feedmelinks|furl|google|gravee|linkagogo|magnolia|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo');
+$all = explode("|",'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|facebook|fark|feedmelinks|furl|google|gravee|linkagogo|magnolia|misterwong|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo');
 echo '<div id="page">';
 //Generates the rows
 $used = array();
@@ -40,7 +39,7 @@ echo '</div>';
 echo "<hr />\r\n";
 
 //Generates the unused bookmarks
-echo "<div id=\"grouptool\" class=\"toolsection\"><h3 class=\"handle\">Unused social bookmarks</h3>\r\n";
+echo "<div id=\"grouptool\" class=\"toolsection\"><h3 class=\"handle\">Unused Social Bookmarks</h3>\r\n";
 for ( $count = 0; $count <= count($all); $count += 1) {
 if (!in_array($all[$count], $used)) {
 if ($all[$count] != '') {

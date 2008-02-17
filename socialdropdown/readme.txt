@@ -3,14 +3,12 @@ Contributors: multippt
 Tags: post, social bookmark, bookmark, accessibility
 Requires at least: 1.5
 Tested up to: 2.3.1
-Stable tag: 1.4.8
+Stable tag: 1.4.9
 Donate link: http://www.tevine.com/donate.php
 
 This plugin displays several social bookmarking in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
 
 == Description ==
-
-NOTE: Please update to 1.4.7. This update fixes a problem found when using the plugin in linux servers.
 
 This plugin displays several social bookmarking options in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
 
@@ -33,7 +31,8 @@ Supported Social Bookmarks (35 in total) are:
 * Gravee
 * Google Bookmarks
 * Linkagogo
-* Ma.gnolia
+* Ma.gnolia
+* Mister Wong
 * NetVouz
 * Newsvine
 * OnlyWire
@@ -149,15 +148,16 @@ Some available screenshots can be found at the [plug-in page](http://www.tevine.
 
 == Changelog ==
 
+* 1.4.9 - Added support for Mister Wong social bookmarking site. Several minor changes. Added uninstallation file.
 * 1.4.8 - Bug fixes related to styles. Added Facebook. Thanks to Eric Fehrenbacher for his help.
-* 1.4.7 - IMPORTANT FIX. This fix fixes a problem found in linux servers.
+* 1.4.7 - IMPORTANT FIX. This fix fixes a problem found in linux servers. [Most stable]
 * 1.4.6 - Edited file check so that it works on all environments.
 * 1.4.5 - Added ability for non-JavaScript users to customize the plugin via admin panel. Plugin now has another mode of customization where bookmarks can be simply enabled and disabled (this mode of customization does not allow rearranging of plugins). The dropdown can also be disabled in this version, making it look similar to other social bookmarking plugins. Fixed version number check. Fixed no link option.
 * 1.4.0 - Added 5 bookmarks. The plugin can now be installed into any directory. Some minor changes to Dropdown to make it slightly more customizeable by style.css. Non-JavaScript users will see the same bookmarks normal users view. The link to plugin page now links to a help page to help users new to social bookmarking.
 * 1.3.3 - Fixed RawSugar links. Thanks to phprocket for informing the problem.
 * 1.3.2 - Fixed path problems.
 * 1.3.1 - Added file checks.
-* 1.3.0 - Allowed for configuration of bookmarks via `Options > Social Dropdown`. [Currently in testing.]
+* 1.3.0 - Allowed for configuration of bookmarks via `Options > Social Dropdown`. [Testing.]
 * 1.2.2 - Link optimisation. Now allows for the disabling of the link back to the plugin's homepage.
 * 1.2.1 - Link optimisation; now the plugin has little negative impact on the site's SEO and has reduced link leakage. Fixed the link to point to plugin's main page. Added customization of styles. Allowed for a customized dropdown "on" state. Added black colored theme.
 * 1.2.0 - Link optimisation. Addition of 10 other social bookmarks. Addition of update notification
