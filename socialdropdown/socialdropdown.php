@@ -5,7 +5,7 @@ Plugin URI: http://www.tevine.com/projects/socialdropdown/
 Description: Displays social bookmarks in a dropdown to reduce clutter. Remember to read the readme...
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.4.9
+Version: 1.5.0
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
@@ -44,7 +44,7 @@ $overrideoptions = 'false'; //Set this to true if you want to override some opti
 $usenonjavaset = 'false'; //Set this to true if you want to use the set of bookmarks for non-JavaScript users.
 
 //The plugin version number
-$dropdownversion = '1.4.9';
+$dropdownversion = '1.5.0';
 
 //A file that generates the bookmarks
 include_once('generatebookmarks.php');
@@ -383,7 +383,7 @@ GenerateAll();
 ?></p></div></div>
 <?php if($usedropdown == 'true') { ?>
 <script type="text/javascript">
-<!--/*--><![CDATA[/*><!--*/
+<!--//--><![CDATA[//><!--
 var menu<?php the_ID(); ?>=new Array()
 menu<?php the_ID(); ?>[0]= '<div class="dropcontent"><p>Bookmark this article!<?php if (get_option('dropdown_allowlinkback') != 'false') { ?> <span><a style="color: #CCCCCC;" href="http://www.tevine.com/projects/socialdropdown/" rel="nofollow" title="Social Dropdown">[?]</a></span><?php } ?></p><p><?php
 GenerateAll();
@@ -391,7 +391,7 @@ GenerateAll();
 var droptext = "<p class=\"taskbuttoncontainer\"><span class=\"booktaskbutton\"><a class=\"bookbutton\" id=\"bookbutton<?php the_ID(); ?>\" href=\"javascript:void(0);\" onclick=\"return dropdownmenu(document.getElementById('bookbutton<?php the_ID(); ?>'), event, menu<?php the_ID(); ?>, '<?php echo $dropdown_width; ?>', document.getElementById('bookdropbutton<?php the_ID(); ?>'))\" onmouseout=\"\" title=\"Bookmarking options\">Bookmark This</a><a class=\"dropdownbutton\" id=\"bookdropbutton<?php the_ID(); ?>\" href=\"javascript:void(0);\" onclick=\"return dropdownmenu(document.getElementById('bookbutton<?php the_ID(); ?>'), event, menu<?php the_ID(); ?>, '<?php echo $dropdown_width; ?>', document.getElementById('bookdropbutton<?php the_ID(); ?>'))\" onmouseout=\"\" title=\"Bookmarking options\">&nbsp;</a></span> </p>";
 var itemdrop = document.getElementById('dropdisp<?php the_ID(); ?>');
 itemdrop.innerHTML = droptext;
-/*]]>*/-->
+//--><!]]>
 </script>
 <?php
 }
