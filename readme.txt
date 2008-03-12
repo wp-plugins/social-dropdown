@@ -137,22 +137,17 @@ Within `generatebookmarks.php`, find a variable called `$all`. Add '|[your bookm
 
 == Frequently Asked Questions ==
 
-**How do you re-arrange bookmarks?**
+= How do you re-arrange bookmarks? =
 Version 1.30 and above of this plug-in supports the customization of bookmarks via administration panel. In order to customize your bookmarks, use the drag and drop feature in `Options > Social Dropdown`.
 
-**There's something wrong with your plugin**
-If you found any problems, please reach me at ready725 at gmail. 
+= There's something wrong with your plugin =
+If you found any problems, please reach me at `ready725 at gmail`. 
 
-== Screenshots ==
-
-Screenshots can be found at the [plug-in page](http://www.tevine.com/projects/socialdropdown/ "Social Dropdown") in Tevine.
+== Screenshots ==
 
 1. Bookmarks displayed in a dropdown.
-
 2. Bookmarks displayed in inline-mode.
-
 3. Drag-and-drop to re-arrange bookmarks
-
 
 == Credits ==
 
