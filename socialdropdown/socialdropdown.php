@@ -60,7 +60,7 @@ function Dropdown_header() {
 $dropdown_linkback = 'true';
 $dropdown_configmode = 'advanced'; //preload advanced
 $dropdown_query = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo,fark|feedmelinks|furl|google|linkagogo|magnolia|misterwong|newsvine|propeller|rawsugar,reddit|rojo|simpy|sphinn|spurl|squidoo|stumbleupon|tailrank|technorati|yahoo';
-$dropdown_all = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo|facebook|fark|feedmelinks|furl|google|gravee|linkagogo|magnolia|misterwong|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo';
+$dropdown_all = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|bumpzee|citeulike|comments|delicious|digg|diigo|facebook|fark|faves|feedmelinks|furl|google|gravee|hugg|jeqq|live|linkagogo|magnolia|misterwong|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo';
 $dropdown_width = '300px';
 $usedropdown = 'true';
 
@@ -423,6 +423,9 @@ break;
 case 'buddymarks':
 echo 'Buddymarks';
 break;
+case 'bumpzee':
+echo 'BumpZee';
+break;
 case 'citeulike':
 echo 'CiteULike';
 break;
@@ -447,6 +450,9 @@ break;
 case 'fark':
 echo 'Fark';
 break;
+case 'faves':
+echo 'Faves';
+break;
 case 'furl':
 echo 'Furl';
 break;
@@ -456,8 +462,17 @@ break;
 case 'google':
 echo 'Google';
 break;
+case 'hugg':
+echo 'Hugg';
+break;
+case 'jeqq':
+echo 'Jeqq';
+break;
 case 'linkagogo':
 echo 'Linkagogo';
+break;
+case 'live':
+echo 'Windows Live';
 break;
 case 'magnolia':
 echo 'ma.gnolia';
@@ -547,6 +562,9 @@ break;
 case 'buddymarks':
 echo htmlentities('http://www.buddymarks.com/add_bookmark.php?bookmark_title='.get_the_title().'&bookmark_url='.get_permalink());
 break;
+case 'bumpzee':
+echo htmlentities('http://www.bumpzee.com/bump.php?u='.get_permalink());
+break;
 case 'comments':
 echo htmlentities('http://co.mments.com/track?url='.get_permalink());
 break;
@@ -569,7 +587,10 @@ case 'facebook' :
 echo htmlentities('http://www.facebook.com/share.php?u='.get_permalink());
 break;
 case 'fark':
-echo htmlentities(' http://cgi.fark.com/cgi/fark/edit.pl?new_url='.get_permalink().'&new_comment='.get_the_title());
+echo htmlentities('http://cgi.fark.com/cgi/fark/edit.pl?new_url='.get_permalink().'&new_comment='.get_the_title());
+break;
+case 'faves':
+echo htmlentities('http://www.faves.com/Authoring.aspx?u='.get_permalink().'&t='.get_the_title());
 break;
 case 'furl':
 echo htmlentities('http://www.furl.net/storeIt.jsp?t='.get_the_title().'&u='.get_permalink());
@@ -580,8 +601,17 @@ break;
 case 'gravee':
 echo htmlentities('http://www.gravee.com/account/bookmarkpop?u='.get_permalink().'&t='.get_the_title());
 break;
+case 'hugg':
+echo htmlentities('http://www.hugg.com/node/add/storylink?edit[title]='.get_the_title().'&edit[url]='.get_permalink());
+break;
+case 'jeqq':
+echo htmlentities('http://www.jeqq.com/submit.php?url='.get_permalink().'&title='.get_the_title());
+break;
 case 'linkagogo':
 echo htmlentities('http://www.linkagogo.com/go/AddNoPopup?title='.get_the_title().'&url='.get_permalink());
+break;
+case 'live':
+echo htmlentities('http://favorites.live.com/quickadd.aspx?marklet=1&mkt=en-sg&url='.get_permalink().'&title='.get_the_title().'&top=0');
 break;
 case 'magnolia':
 echo htmlentities('http://ma.gnolia.com/bookmarklet/add?url='.get_permalink().'&title='.get_the_title());

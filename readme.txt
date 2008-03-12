@@ -3,33 +3,37 @@ Contributors: multippt
 Tags: post, social bookmark, bookmark, accessibility
 Requires at least: 1.5
 Tested up to: 2.3.1
-Stable tag: 1.4.9
+Stable tag: 1.5.0
 Donate link: http://www.tevine.com/donate.php
 
-This plugin displays several social bookmarking in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
+This plugin displays several social bookmarks in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
 
 == Description ==
 
 This plugin displays several social bookmarking options in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
 
-Supported Social Bookmarks (35 in total) are:
+Supported Social Bookmarks (42 in total) are:
 
 * BlinkBits
 * BlinkList
 * BlogLines
 * BlogMarks
-* Buddymarks
+* Buddymarks
+* BumpZee
 * CiteULike
 * Co.mments
 * Del.icio.us
 * Digg
 * Diigo
 * Facebook
-* Fark
+* Fark
+* Faves
 * Feed Me Links
 * Furl
 * Gravee
-* Google Bookmarks
+* Google Bookmarks
+* Hugg
+* Jeqq
 * Linkagogo
 * Ma.gnolia
 * Mister Wong
@@ -49,7 +53,8 @@ Supported Social Bookmarks (35 in total) are:
 * Taggly
 * Tagtooga
 * TailRank
-* Technorati
+* Technorati
+* Windows Live
 * Yahoo MyWebs
 
 In addition, you can customize the order of the bookmarks or choose to remove some of them without editing a file.
@@ -116,7 +121,7 @@ Within `socialdropdown.php`, these are some areas you can edit to influence how 
 
 In the `GenerateAll()` function, you can re-arrange how the items appear, add new items or remove them (after setting `$overrideoptions` to `true`). You can already do this using the `Options > Social Dropdown panel`.
 
-** Creating bookmarks **
+**Creating bookmarks**
 Each social bookmark is generated using the `GenerateLink()` function, and the URLs used are created using the `GenerateURL()` function. The parameters are as followed: GenerateLink($type), where $type is the name of the social bookmark (e.g. Digg is represented as 'digg').
 In order to add a new bookmark, add the following lines of code after an item [i.e. after `break;`] in the **GenerateURL()** function. An example is shown:
 
@@ -140,14 +145,22 @@ If you found any problems, please reach me at ready725 at gmail.
 
 == Screenshots ==
 
-Some available screenshots can be found at the [plug-in page](http://www.tevine.com/projects/socialdropdown/ "Social Dropdown") in Tevine.
+Screenshots can be found at the [plug-in page](http://www.tevine.com/projects/socialdropdown/ "Social Dropdown") in Tevine.
+
+1. Bookmarks displayed in a dropdown.
+
+2. Bookmarks displayed in inline-mode.
+
+3. Drag-and-drop to re-arrange bookmarks
+
 
 == Credits ==
 
-1 image is taken from http://www.famfamfam.com/. Several images are created or taken from the corresponding social bookmarking sites and edited to suit the plug-in. The dropdown javascript is taken from http://www.dynamicdrive.com/ and modified. The drag-drop library is provided by script.aculo.us.
+1 image is taken from http://www.famfamfam.com/. Several images are created or taken from the corresponding social bookmarking sites and edited to suit the plug-in. The dropdown javascript is taken from http://www.dynamicdrive.com/ and modified. The drag-drop library is provided by http://script.aculo.us/.
 
 == Changelog ==
 
+* 1.5.0 - Added support for BumpZee, Faves, Hugg, Jeqq, Windows Live. Some changes to the icons used.
 * 1.4.9 - Added support for Mister Wong social bookmarking site. Several minor changes. Added uninstallation file.
 * 1.4.8 - Bug fixes related to styles. Added Facebook. Thanks to Eric Fehrenbacher for his help.
 * 1.4.7 - IMPORTANT FIX. This fix fixes a problem found in linux servers. [Most stable]
