@@ -34,7 +34,7 @@
 		margin: 30px 5px;
 		padding: 0px 0px 10px 0px;
 		background-color: #DFF2B5;
-		height: 110px;
+		height: 160px;
 	}	
 	.configwidget div.toolsection h3{
 		font-size: 14px;

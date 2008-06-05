@@ -2,8 +2,8 @@
 Contributors: multippt
 Tags: post, social bookmark, bookmark, accessibility
 Requires at least: 1.5
-Tested up to: 2.3.1
-Stable tag: 1.5.0
+Tested up to: 2.5.1
+Stable tag: 2.0.0
 Donate link: http://www.tevine.com/donate.php
 
 This plugin displays several social bookmarks in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
@@ -11,8 +11,16 @@ This plugin displays several social bookmarks in a dropdown. Unlike other social
 == Description ==
 
 This plugin displays several social bookmarking options in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
+
+**Whats new in 2.0**
+
+Version 2.0 features a new fresh look which is much easier to use and is extremely search engine friendly. Nonetheless, if you do not like the new layout, you can always use the old one via the administration panel. The new layout should go well with most layouts.
+
+The new version also takes into consideration of non-JavaScript users and would downgrade gracefully to allow non-JavaScript users to utilize every other feature (exception of dropdown).
+
+Integration with an external [Social Bookmarking API](http://www.apithis.com/social/bookmark.php "Bookmark and Share API") allows your blog users to enjoy all bookmarks that are available even if you have not upgraded your plugin past version 2.0.
 
-Supported Social Bookmarks (42 in total) are:
+**Supported Social Bookmarks**
 
 * BlinkBits
 * BlinkList
@@ -40,7 +48,7 @@ Supported Social Bookmarks (42 in total) are:
 * NetVouz
 * Newsvine
 * OnlyWire
-* Propeller (replaces Netscape)
+* Propeller
 * RawSugar
 * Reddit
 * Rojo
@@ -61,32 +69,19 @@ In addition, you can customize the order of the bookmarks or choose to remove so
 
 If you do not like Dropdowns, this plugin has the ability to show the bookmarks without the dropdown - similar to what other plugins display.
 
-Remember to **read the readme file** to ensure that you have done what is needed.
+Remember to **read the readme file** to ensure that you have done what is needed.
 
 == Installation ==
 
 By installing the plugin, you agree to [Tevine's policies](http://www.tevine.com/policies.php "Tevine's Policies").
 
-1. Upload the **"social-dropdown"** (actually, any directory will do) folder into the "/wp-content/plugins/" directory. The folder should consist of several files and folders:
+1. Upload the **"social-dropdown"** (actually, any directory will do) folder into the "/wp-content/plugins/" directory. 
 
-* readme.txt
-* LICENSE.txt
-* ajax.js
-* configinterface.php
-* dropdown.js
-* generatebookmarks.php
-* style.css
-* socialdropdown.php
-* icons/
-* thescripts/
+2. Login to your Wordpress Dashboard Panel and activate the "Social Dropdown" plug-in from the plugins tab. If there are no error messages (e.g. in the options panel or else-where), the plugin is properly installed.
 
-2. Login to your Wordpress Administration Panel
+3. Insert `<?php Show_Dropdown(); ?>` at where you want the social bookmarks to be displayed. This line of code should be placed within the Wordpress loop (i.e. the place where your posts appear).
 
-3. Go to the plugins tab, and activate the "Social Dropdown" plug-in. If there are no error messages (e.g. in the options panel or else-where), the plugin is properly installed.
-
-4. Insert `<?php Show_Dropdown(); ?>` at where you want the social bookmarks to be displayed. This line of code should be placed within the Wordpress loop (i.e. the place where your posts appear).
-
-5. You can rearrange, add and remove bookmarks via the `Options > Social Dropdown` panel.
+4. You can rearrange, add and remove bookmarks that are displayed via the `Settings > Social Dropdown` panel in Wordpress 2.5 and above, or in the `Options > Social Dropdown` panel in earlier versions of Wordpress.
 
 Feel free to poke around the internals of the plug-in.
 
@@ -94,11 +89,11 @@ Feel free to poke around the internals of the plug-in.
 
 You can check what version the plug-in is at via visiting the `Options > Social Dropdown` panel.
 
-1. Deactivate the `Social Dropdown` plug-in. You may want to back-up your existing plug-in files.
+1. Deactivate the `Social Dropdown` plug-in. You may want to back-up your existing plug-in files just in case if there are any errors while updating.
 
-2. Replace the files in the `socialdropdown` directory located in the Wordpress plug-ins directory
+2. Replace the files in the `social-dropdown` directory located in the Wordpress plug-ins directory.
 
-3. Activate the `Social Dropdown` plug-in
+3. Re-activate the `Social Dropdown` plug-in from the administration dashboard.
 
 If you have modified the `GenerateAll()` function, copy the modified area and set `$overrideoptions` to `true` to preserve your changes. `$overrideoptions` can be found in `generatebookmarks.php`.
 
@@ -112,8 +107,8 @@ If you have modified the `GenerateAll()` function, copy the modified area and se
 
 Most Wordpress installs and templates have these, so you need not worry about these.
 
-In addition, to be able to use the dropdown, one must have JavaScript enabled in the browser. 
-However, users without JavaScript installed will see a list of social bookmarks at where the dropdown is.
+To be able to use the dropdown, one must have JavaScript enabled in the browser. 
+Fortunately, users without JavaScript enabled will see a list of social bookmarks at where the dropdown is.
 
 == Customizing ==
 
@@ -137,24 +132,35 @@ Within `generatebookmarks.php`, find a variable called `$all`. Add '|[your bookm
 
 == Frequently Asked Questions ==
 
-= How do you re-arrange bookmarks? =
+**How do you re-arrange bookmarks?**
 Version 1.30 and above of this plug-in supports the customization of bookmarks via administration panel. In order to customize your bookmarks, use the drag and drop feature in `Options > Social Dropdown`.
 
-= There's something wrong with your plugin =
-If you found any problems, please reach me at `ready725 at gmail`. 
+**There's something wrong with your plugin**
+If you found any problems, please reach me at ready725 at gmail. 
+
+**What happens when a user with JavaScript disabled views the dropdown?**
+A box containing a list of bookmarks will replace the Bookmark link at where the dropdown would be so that the user won't miss out of the bookmarking option entirely.
+
+**What browsers do the plugin support?**
+The plugin validates properly under the XHTML validator, hence it should looks fine on most browsers which follows standards. The plugin has been tested on Internet Explorer 7 and Firefox.
 
 == Screenshots ==
 
 1. Bookmarks displayed in a dropdown.
-2. Bookmarks displayed in inline-mode.
-3. Drag-and-drop to re-arrange bookmarks
+
+2. Bookmarks displayed in non-Javascript mode.
+
+3. Drag and drop to arrange bookmarks
+
+4. Legacy support for older dropdown.
 
 == Credits ==
 
-1 image is taken from http://www.famfamfam.com/. Several images are created or taken from the corresponding social bookmarking sites and edited to suit the plug-in. The dropdown javascript is taken from http://www.dynamicdrive.com/ and modified. The drag-drop library is provided by http://script.aculo.us/.
+Several images are created or taken from the corresponding social bookmarking sites and edited to suit the plug-in. The dropdown javascript is taken from http://www.dynamicdrive.com/ and modified. The drag-drop library is provided by http://script.aculo.us/.
 
 == Changelog ==
 
+* 2.0.0 - Changed dropdown style, now it is based on Wordpress guidelines. The dropdown link is now totally customizeable via CSS, and can even be made to resemble an ordinary link (hence will go well with most page layouts). Administration panel changed to fit Wordpress guidelines. A new hover system makes it easier to identify the bookmarks. New external API to ensure that non-JavaScript users will not get to miss out on the full capabilities of the plugin.
 * 1.5.0 - Added support for BumpZee, Faves, Hugg, Jeqq, Windows Live. Some changes to the icons used.
 * 1.4.9 - Added support for Mister Wong social bookmarking site. Several minor changes. Added uninstallation file.
 * 1.4.8 - Bug fixes related to styles. Added Facebook. Thanks to Eric Fehrenbacher for his help.

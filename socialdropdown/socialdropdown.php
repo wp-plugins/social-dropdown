@@ -5,7 +5,7 @@ Plugin URI: http://www.tevine.com/projects/socialdropdown/
 Description: Displays social bookmarks in a dropdown to reduce clutter. Remember to read the readme...
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 1.5.0
+Version: 2.0.0
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
@@ -44,31 +44,29 @@ $overrideoptions = 'false'; //Set this to true if you want to override some opti
 $usenonjavaset = 'false'; //Set this to true if you want to use the set of bookmarks for non-JavaScript users.
 
 //The plugin version number
-$dropdownversion = '1.5.0';
+$dropdownversion = '2.0.0';
 
 //A file that generates the bookmarks
 include_once('generatebookmarks.php');
 
-function Dropdown_header() {
-?>
-<link rel="stylesheet" href="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/style.css" type="text/css" />
-<script type="text/javascript" src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/dropdown.js"></script>
-<?php
-}
-
-//Default values, they will be used in install
+//Default values, they will be used in install. Do not change them here.
 $dropdown_linkback = 'true';
 $dropdown_configmode = 'advanced'; //preload advanced
-$dropdown_query = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo,fark|feedmelinks|furl|google|linkagogo|magnolia|misterwong|newsvine|propeller|rawsugar,reddit|rojo|simpy|sphinn|spurl|squidoo|stumbleupon|tailrank|technorati|yahoo';
+//$dropdown_query = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|citeulike|comments|delicious|digg|diigo,fark|feedmelinks|furl|google|linkagogo|magnolia|misterwong|newsvine|propeller|rawsugar,reddit|rojo|simpy|sphinn|spurl|squidoo|stumbleupon|tailrank|technorati|yahoo';
+$dropdown_query = 'delicious|digg|furl|google|misterwong|newsvine|propeller|reddit|slashdot|stumbleupon|technorati|yahoo';
 $dropdown_all = 'blinkbits|blinklist|bloglines|blogmarks|buddymarks|bumpzee|citeulike|comments|delicious|digg|diigo|facebook|fark|faves|feedmelinks|furl|google|gravee|hugg|jeqq|live|linkagogo|magnolia|misterwong|netvouz|newsvine|onlywire|propeller|rawsugar|reddit|rojo|simpy|slashdot|sphinn|spurl|squidoo|stumbleupon|tailrank|taggly|tagtooga|technorati|yahoo';
-$dropdown_width = '300px';
+$dropdown_width = '400px';
 $usedropdown = 'true';
+$dropdown_uselegacy = 'false';
+$dropdown_autoembed = 'false';
 
 //Install options
 add_option('dropdown_allowlinkback', $dropdown_linkback, 'Allows a link back to the plugin page [Social Dropdown]');
 add_option('dropdown_query', $dropdown_query, 'The saved dropdown items [Social Dropdown]');
 add_option('dropdown_use', $usedropdown, 'Use the dropdown [Social Dropdown]');
 add_option('dropdown_configmode', $dropdown_configmode, 'Use a configuration mode [Social Dropdown]');
+add_option('dropdown_configmode', $dropdown_uselegacy, 'Use a old version [Social Dropdown]');
+add_option('dropdown_autoembed', $dropdown_autoembed, 'Embed dropdown in posts [Social Dropdown]');
 
 if (get_option('dropdown_allowlinkback') == '') {
 	update_option('dropdown_allowlinkback', $dropdown_linkback);
@@ -85,6 +83,12 @@ if (get_option('dropdown_use') == '') {
 if (get_option('dropdown_configmode') == '') {
 	update_option('dropdown_configmode', $dropdown_configmode);
 }
+if (get_option('dropdown_uselegacy') == '') {
+	update_option('dropdown_uselegacy', $dropdown_uselegacy);
+}
+if (get_option('dropdown_autoembed') == '') {
+	update_option('dropdown_autoembed', $dropdown_autoembed);
+}
 
 if (get_option('dropdown_allowlinkback') != $dropdown_linkback) {
 	$dropdown_linkback = get_option('dropdown_allowlinkback');
@@ -100,6 +104,29 @@ if (get_option('dropdown_use') != $usedropdown) {
 }
 if (get_option('dropdown_configmode') != $dropdown_configmode) {
 	$dropdown_configmode = get_option('dropdown_configmode');
+}
+if (get_option('dropdown_uselegacy') != $dropdown_uselegacy) {
+	$dropdown_uselegacy = get_option('dropdown_uselegacy');
+}
+if (get_option('dropdown_autoembed') != $dropdown_autoembed) {
+	$dropdown_autoembed = get_option('dropdown_autoembed');
+}
+
+
+function Dropdown_header() {
+global $dropdown_uselegacy;
+if ($dropdown_uselegacy == 'true') {
+?>
+<link rel="stylesheet" href="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/style.css" type="text/css" />
+<script type="text/javascript" src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/dropdown_old.js"></script>
+<?php } else { ?>
+<link rel="stylesheet" href="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/dropdown.css" type="text/css" />
+<!--[if lte IE 7]>
+<link rel="stylesheet" href="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/dropie.css" />
+<![endif]-->
+<script type="text/javascript" src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/dropdown.js"></script>
+<?php } ?>
+<?php
 }
 
 //Gives the path of the plugin for use in PHP
@@ -190,31 +217,45 @@ UpdateDropOptions();
 ?>
 <form method="post">
 <?php wp_nonce_field('update-options'); ?>
-<p class="submit">
-<input type="submit" name="Submit" value="<?php _e('Update Options &raquo;') ?>" />
-</p>
-<p><?php _e('You can configure some options through this panel.'); ?></p>
-<h3>Customize bookmarks</h3>
-<?php include('configinterface.php'); ?>
-
-<h3>Other options</h3>
-<p>Display a link to the plugin's homepage (certainly appreciated).<br />
-<input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="true" <?php if (get_option('dropdown_allowlinkback') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
-<input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="false" <?php if (get_option('dropdown_allowlinkback') != 'true') { echo ' checked="checked"'; } ?> /><?php _e('No'); ?></p>
-
-<p>Use dropdown (setting this to no will show bookmarks without the dropdown, making it similar to other social bookmark plugins)<br />
-<input type="radio" name="dropdown_use" id="dropdown_use" value="true" <?php if (get_option('dropdown_use') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
-<input type="radio" name="dropdown_use" id="dropdown_use" value="false" <?php if (get_option('dropdown_use') != 'true') { echo ' checked="checked"'; } ?> /><?php _e('No'); ?></p>
-
+<h3><?php _e('Main options'); ?></h3>
+<table class="form-table" border="0">
+<tr valign="top">
+<th scope="row" style="text-align: left;">Link to the plugin's homepage</th>
+<td>
+<p><input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="true" <?php if (get_option('dropdown_allowlinkback') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
+<input type="radio" name="dropdown_allowlinkback" id="dropdown_allowlinkback" value="false" <?php if (get_option('dropdown_allowlinkback') != 'true') { echo ' checked="checked"'; } ?> /><?php _e('No'); ?><br />
+A link back is certainly appreciated. Default: <code>Yes</code></p>
+</td></tr>
+<th scope="row" style="text-align: left;">Use old version</th>
+<td>
+<p><input type="radio" name="dropdown_uselegacy" id="dropdown_uselegacy" value="true" <?php if (get_option('dropdown_uselegacy') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
+<input type="radio" name="dropdown_uselegacy" id="dropdown_uselegacy" value="false" <?php if (get_option('dropdown_uselegacy') != 'true') { echo ' checked="checked"'; } ?> /><?php _e('No'); ?><br />
+If you do not like the new styles, you could always use the old one. Default: <code>No</code></p>
+</td></tr>
+<tr valign="top">
+<th scope="row" style="text-align: left;">Show Bookmarks as Dropdown</th>
+<td>
+<p><input type="radio" name="dropdown_use" id="dropdown_use" value="true" <?php if (get_option('dropdown_use') == 'true') { echo ' checked="checked"'; } ?> /><?php _e('Yes'); ?><br />
+<input type="radio" name="dropdown_use" id="dropdown_use" value="false" <?php if (get_option('dropdown_use') != 'true') { echo ' checked="checked"'; } ?> /><?php _e('No'); ?><br />
+Setting this to <code>No</code> will show bookmarks without the dropdown, making it similar to other bookmarking plugins. Default: <code>Yes</code></p>
 <?php if (get_option('dropdown_use') == 'true') { ?>
-<p>Dropdown width (width of the dropdown, default is 300px)<br />
-<input type="text" name="dropdown_width" id="dropdown_width" value="<?php echo get_option('dropdown_width'); ?>" />
-
+</td></tr>
+<tr valign="top">
+<th scope="row" style="text-align: left;">Dropdown width</th>
+<td><p><input type="text" name="dropdown_width" id="dropdown_width" value="<?php echo get_option('dropdown_width'); ?>" /><br />
+Default: 400px</p>
 <?php } else { ?>
 <input type="hidden" name="dropdown_width" id="dropdown_width" value="<?php echo get_option('dropdown_width'); ?>" />
 <?php } ?>
+</td>
+</tr>
+</table>
+<h3>Customize bookmarks</h3>
+<?php include('configinterface.php'); ?>
+
+
 <input type="hidden" name="action" value="update" />
-<input type="hidden" name="page_options" value="dropdown_allowlinkback,dropdown_use,dropdown_configmode,dropdown_width" />
+<input type="hidden" name="page_options" value="dropdown_uselegacy,dropdown_allowlinkback,dropdown_use,dropdown_configmode,dropdown_width" />
 
 
 
@@ -222,7 +263,8 @@ UpdateDropOptions();
 <input type="submit" name="Submit" value="<?php _e('Update Options &raquo;') ?>" />
 </p>
 <h3>Other information</h3>
-<p>Don't forget to put in <code>&lt;?php Show_Dropdown(); ?&gt;</code> into the Wordpress loop which usually resides in your index.php file.</p>
+<p>Don't forget to put in <code>&lt;?php Show_Dropdown(); ?&gt;</code> into the Wordpress loop which usually resides in your index.php file in your Wordpress theme if you are not automatically embedding the dropdown in your posts.</p>
+<p>You can split up the HTML version of the plugin (shown to non-JavaScript users) and the Dropdown link by using <code>&lt;?php Dropdown_html(true); ?&gt;</code> for the HTML portion and <code>&lt;?php Dropdown_javascript(); ?&gt;</code> for the JavaScript portion.
 <p>This plug-in does not interfere with your site's search engine optimisation (SEO) as most links are &quot;nofollowed&quot;.</p>
 <?php Dropdown_Updatecheck(); ?>
 </form>
@@ -263,21 +305,22 @@ if (Dropdown_Checkversion($response)) {
 }
 
 //A function that mimics how wordpress deals with version numbers
+//Modified to work with higher version numbers
 function Dropdown_Checkversion($version) {
 global $dropdownversion;
 $verfrag = explode('.',$version);
 $plufrag = explode('.',$dropdownversion);
 //Check 3 levels only
-if (((int) $verfrag[0]) > ((int) $plufrag[0])) {
-	return true;
+if (((int) $verfrag[0]) < ((int) $plufrag[0])) {
+	return false;
 } else {
-	if (((int) $verfrag[1]) > ((int) $plufrag[1])) {
-		return true;
+	if (((int) $verfrag[1]) < ((int) $plufrag[1])) {
+		return false;
 	} else {
-		if (((int) $verfrag[2]) > ((int) $plufrag[2])) {
-			return true;
-		} else {
+		if (((int) $verfrag[2]) < ((int) $plufrag[2])) {
 			return false;
+		} else {
+			return true;
 		}
 	}
 }
@@ -371,6 +414,10 @@ GenerateLink('yahoo');
 $isfirst = '';
 
 function Show_Dropdown() {
+global $dropdown_uselegacy;
+if ($dropdown_uselegacy != 'true') {
+Dropdown_html();
+} else {
 global $isfirst, $usedropdown, $usenonjavaset, $dropdown_width;
 ?>
 <div id="dropdisp<?php the_ID(); ?>"><div class="nojavadropcontent" style="text-align: center;"><p>Bookmark this article!<?php if (get_option('dropdown_allowlinkback') != 'false') { ?> <span><a style="color: #CCCCCC;"  rel="<?php if ($isfirst == '' && is_home()) { $isfirst = 'false'; } else { echo 'nofollow'; } ?>" href="http://www.tevine.com/projects/socialdropdown/" title="About Social Dropdown">[?]</a></span><?php } ?></p><p><?php
@@ -395,13 +442,16 @@ itemdrop.innerHTML = droptext;
 </script>
 <?php
 }
+
+}
+
 }
 
 function GenerateLink($type) {
 if ($type != 'separator') {
 ?><a class="link" rel="nofollow" title="<?php GenerateName($type); ?>" href="<?php GenerateURL($type) ?>"><img alt="<?php GenerateName($type); ?>" src="<?php echo get_settings('siteurl'); ?>/<?php echo str_replace("\\","/", GetDropPluginPath()); ?>/icons/<?php echo $type; ?>.png" /></a><?php
 } else {
-echo '</p><p>';
+echo "</p><p>";
 }
 }
 
@@ -681,6 +731,7 @@ break;
 
 }
 
+include('dropdown.php');
 
 //Runs the plugin
 add_action('wp_head', 'Dropdown_header');
