@@ -3,7 +3,7 @@ Contributors: multippt
 Tags: post, social bookmark, bookmark, accessibility
 Requires at least: 1.5
 Tested up to: 2.5.1
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 Donate link: http://www.tevine.com/donate.php
 
 This plugin displays several social bookmarks in a dropdown. Unlike other social bookmarking displays, this does not cause clutter.
@@ -18,7 +18,7 @@ Version 2.0 features a new fresh look which is much easier to use and is extreme
 
 The new version also takes into consideration of non-JavaScript users and would downgrade gracefully to allow non-JavaScript users to utilize every other feature (exception of dropdown).
 
-Integration with an external [Social Bookmarking API](http://www.apithis.com/social/bookmark.php "Bookmark and Share API") allows your blog users to enjoy all bookmarks that are available even if you have not upgraded your plugin past version 2.0.
+Integration with an external [Social Bookmarking API](http://www.tevine.com/social/ "Bookmark and Share API") allows your blog users to enjoy all bookmarks that are available even if you have not upgraded your plugin past version 2.0.
 
 **Supported Social Bookmarks**
 
@@ -160,6 +160,7 @@ Several images are created or taken from the corresponding social bookmarking si
 
 == Changelog ==
 
+* 2.0.1 - Bug fix. Relocated now defunct ApiThis service to Tevine service.
 * 2.0.0 - Changed dropdown style, now it is based on Wordpress guidelines. The dropdown link is now totally customizeable via CSS, and can even be made to resemble an ordinary link (hence will go well with most page layouts). Administration panel changed to fit Wordpress guidelines. A new hover system makes it easier to identify the bookmarks. New external API to ensure that non-JavaScript users will not get to miss out on the full capabilities of the plugin.
 * 1.5.0 - Added support for BumpZee, Faves, Hugg, Jeqq, Windows Live. Some changes to the icons used.
 * 1.4.9 - Added support for Mister Wong social bookmarking site. Several minor changes. Added uninstallation file.

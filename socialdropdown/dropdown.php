@@ -34,7 +34,7 @@ $dropdown_allowlinkback = get_option('dropdown_allowlinkback');
 </div>
 <div class="options">
 <div class="info" id="dropinfo<?php the_ID(); ?>"></div>
-<div class="more"><span class="evenmore" id="evenmore<?php the_id(); ?>"></span><a href="http://www.apithis.com/social/bookmark.php<?php if (!is_single()) { echo '?url='; the_permalink(); } ?>" onclick="return ShowHideArea('extrabookmark<?php the_ID(); ?>', this);" onmouseover="javascript:ShowDescription(this,'dropinfo<?php the_ID(); ?>')" title="More bookmarks">More &raquo;</a></div>
+<div class="more"><span class="evenmore" id="evenmore<?php the_id(); ?>"></span><a href="http://www.tevine.com/social/<?php if (!is_single()) { echo '?url='; echo str_replace("http://","",get_permalink()); } ?>" onclick="return ShowHideArea('extrabookmark<?php the_ID(); ?>', this);" onmouseover="javascript:ShowDescription(this,'dropinfo<?php the_ID(); ?>')" title="More bookmarks">More &raquo;</a></div>
 </div>
 </div></div>
 <?php if ($iscallout) { ?>
@@ -48,7 +48,7 @@ extrabookmarks = document.getElementById('extrabookmark<?php the_ID(); ?>');
 extrabookmarks.innerHTML = "<p><?php Dropdown_GenerateAll_Inverse(true); ?></p>";
 
 evenmore = document.getElementById('evenmore<?php the_ID(); ?>');
-evenmore.innerHTML = "<a onmouseover=\"javascript:ShowDescription(this,\'dropinfo<?php the_ID(); ?>\')\" href=\"http://www.apithis.com/social/bookmark.php<?php if (!is_single()) { echo '?url='; the_permalink(); } ?>\" title=\"Even More Bookmarks\">Even More</a> | ";
+evenmore.innerHTML = "<a onmouseover=\"javascript:ShowDescription(this,\'dropinfo<?php the_ID(); ?>\')\" href=\"http://www.tevine.com/social/<?php if (!is_single()) { echo '?url='; echo str_replace("http://","",get_permalink()); } ?>\" title=\"Even More Bookmarks\">Even More</a> | ";
 //--><!]]>
 </script>
 <?php
