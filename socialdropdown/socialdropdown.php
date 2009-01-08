@@ -5,7 +5,7 @@ Plugin URI: http://www.tevine.com/projects/socialdropdown/
 Description: Displays social bookmarks in a dropdown to reduce clutter. Remember to read the readme...
 Author: Nicholas Kwan (multippt)
 Author URI: http://www.tevine.com/
-Version: 2.0.0
+Version: 2.0.1
 Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
 */
 
